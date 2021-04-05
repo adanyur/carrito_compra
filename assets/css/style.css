@@ -1,0 +1,15 @@
+.container-content {
+  margin-top: 70px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.card-shadow {
+  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.2);
+  border-radius: 1.5rem;
+}
+
+.img-border-radius {
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+}
