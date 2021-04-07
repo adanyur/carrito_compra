@@ -1,11 +1,8 @@
 <?php
 define('DB_HOST', 'localhost');
-//define('DB_HOST','db5001252134.hosting-data.io');
 define('DB_NAME', 'cart');//Base de datos
-//define('DB_NAME', 'dbs1069954');//Base de datos
 define('DB_USER', 'root');// Usuario de base de datos
-//define('DB_USER', 'dbu848164');// Usuario de base de datos
-define('DB_PASS', ''); // Peruano1.   Contraseña de usuario MySQL
+define('DB_PASS', '2009'); // Peruano1.   Contraseña de usuario MySQL
 
 try {
 	$db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS);
@@ -23,15 +20,9 @@ class DBController
     private static $conn;
 
 
-
-    function __construct()
-
-    {
-
+    function __construct(){
         $this->conn = mysqli_connect($this->host, $this->user, $this->password, $this->database);
-
     }
-
 
 
     public static function getConnection()
@@ -44,83 +35,48 @@ class DBController
 
 
     function getDBResult($query, $params = array())
-
     {
 
         $sql_statement = $this->conn->prepare($query);
-
         if (!empty($params)) {
-
             $this->bindParams($sql_statement, $params);
-
         }
 
         $sql_statement->execute();
-
-        $result = $sql_statement->get_result();
-
-        
+        $result = $sql_statement->get_result();       
 
         if ($result->num_rows > 0) {
-
             while ($row = $result->fetch_assoc()) {
-
                 $resultset[] = $row;
-
             }
-
         }
 
-        
-
         if (! empty($resultset)) {
-
             return $resultset;
-
         }
 
     }
-
 
 
     function insertDB($query, $params = array())
-
     {
-
         $sql_statement = $this->conn->prepare($query);
-
         if (! empty($params)) {
-
             $this->bindParams($sql_statement, $params);
-
         }
-
         $sql_statement->execute();
-
-        
-
         $id = mysqli_insert_id ( $this->conn );
-
         return $id;
-
     }
-
-    
+  
 
     function updateDB($query, $params = array())
-
     {
-
         $sql_statement = $this->conn->prepare($query);
-
         if (! empty($params)) {
-
             $this->bindParams($sql_statement, $params);
-
         }
-
         $sql_statement->execute();
-
     }
 
 
@@ -128,28 +84,22 @@ class DBController
     function bindParams($sql_statement, $params)
 
     {
-
         $param_type = "";
-
         foreach ($params as $query_param) {
-
             $param_type .= $query_param["param_type"];
-
-        }
-
-        
+        }       
 
         $bind_params[] = & $param_type;
-
         foreach ($params as $k => $query_param) {
-
             $bind_params[] = & $params[$k]["param_value"];
-
         }
-
         call_user_func_array(array($sql_statement,'bind_param'), $bind_params);
-
     }
+
+    function closeConexion(){
+        $db = null;
+    }
+
 
 }
 

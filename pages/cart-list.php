@@ -1,16 +1,30 @@
 <?php 
-require_once "./class/Carrito-class.php";
+define('RUTA_CLASS', dirname(dirname(__FILE__)));
+require_once RUTA_CLASS."\class\Carrito-class.php";
 $shoppingCart = new Carrito();
 
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-$cantidad = isset($_GET['quantity']) ? $_GET['quantity'] : '';
-$usuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+$id = $cantidad = $usuario ='';
 
-$data = $shoppingCart->getAllCarrito();
-// $dataid= $shoppingCart->getCarritoByCode(1952079);
-$insert= $shoppingCart->addToCart($id,$cantidad,$usuario);
 
-// print_r($data);
+ $id = isset($_POST['id']) ? $_POST['id'] : '';
+ $cantidad = isset($_POST['quantity']) ? $_POST['quantity'] : '';
+ $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : '';
+
+ echo $usuario."<br>";
+ echo $cantidad."<br>";
+ echo $id."<br>";
+
+//unset($_POST['id']);
+
+
+echo $_SERVER['PHP_SELF'];
+
+//$data = $shoppingCart->getAllCarrito();
+//$insert= $shoppingCart->addToCart($id,$cantidad,$usuario);
+
+//$dataid= $shoppingCart->getCarritoByCode(1952079);
+//print_r($dataid);
+
 
 
 ?>

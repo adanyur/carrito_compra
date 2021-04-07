@@ -22,6 +22,7 @@
   width: 100%;
   background-color: #343a40;
   color: #fff;
+  margin-bottom: 10px;
 }
 
 .info {
@@ -31,9 +32,12 @@
 
 .info-price {
   padding: 10px;
-  font-size: 2.9em;
+  font-size: 3em;
   color: red;
   width: 50%;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
 }
 
 .info .infor-title {
@@ -48,6 +52,7 @@
 
 .info .infor-title span {
   padding: 10px;
+  font-weight: 500;
 }
 
 .input-control {
