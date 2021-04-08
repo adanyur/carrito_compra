@@ -46,6 +46,35 @@ class Carrito extends DBController
             )
         );
         
-        $this->insertDB($query, $params);
+        return $this->insertDB($query, $params);
+    }
+
+    function  countCarrito($id){
+        $query = "SELECT count(*) AS count FROM tbl_cart WHERE member_id=?";
+        $params = array(
+            array(
+                "param_type" => "s",
+                "param_value" => $id
+            )
+        );
+        return $this->getDBResult($query, $params);
+    }
+
+    function cartProductList($id){
+        $query = "SELECT a.id,
+                    b.name,
+                    b.price,
+                    a.quantity,
+                    (b.price * a.quantity) as total
+                    from tbl_cart a
+                    join tbl_product b on (a.product_id=b.id) 
+                    WHERE member_id=?";
+        $params = array(
+            array(
+                "param_type" => "s",
+                "param_value" => $id
+            )
+        );
+        return $this->getDBResult($query, $params);
     }
 }
