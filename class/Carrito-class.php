@@ -63,6 +63,7 @@ class Carrito extends DBController
     function cartProductList($id){
         $query = "SELECT a.id,
                     b.name,
+                    b.image,
                     b.price,
                     a.quantity,
                     (b.price * a.quantity) as total
@@ -76,5 +77,17 @@ class Carrito extends DBController
             )
         );
         return $this->getDBResult($query, $params);
+    }
+
+    function deleteCart($id){
+        $query ="DELETE FROM tbl_cart WHERE id=?";
+
+        $params = array(
+            array(
+                "param_type" => "s",
+                "param_value" => $id
+            )
+        );
+        return $this->deleteDB($query, $params);
     }
 }

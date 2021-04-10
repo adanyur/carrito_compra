@@ -8,5 +8,10 @@ $cantidad = isset($_POST['cantidad']) ? $_POST['cantidad'] : '';
 $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : '';
 
 $insert= $shoppingCart->addToCart($idproducto,$cantidad,$usuario);
-echo $insert;
+
+if($insert){
+    echo "Se agrego al carrito";
+    return;
+}
+echo "No se agrego error!";
 ?>

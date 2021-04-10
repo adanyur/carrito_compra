@@ -11,14 +11,14 @@ const AddCart = (id) => {
 };
 
 const postCart = (data) => {
-  $.post("pages/cart-list.php", data, (data) => {
+  $.post("../pages/cart-list.php", data, (data) => {
     console.log(data);
     countCarrito();
   });
 };
 
 const countCarrito = () => {
-  $.get("model/countCarrito.php", (data) => {
+  $.get("../model/countCarrito.php", (data) => {
     let count = JSON.parse(data);
     count.forEach((count) => {
       document.getElementById("countCarrito").innerHTML = count.count || 0;
@@ -27,7 +27,7 @@ const countCarrito = () => {
 };
 
 const carProductList = () => {
-  $.get("model/productListById-model.php", (data) => {
+  $.get("../model/productListById-model.php", (data) => {
     let count = JSON.parse(data);
     let template = "";
     count.forEach((count, indice) => {
@@ -49,3 +49,10 @@ document.getElementById("listProducto").addEventListener("click", (e) => {
   document.getElementById("modal-btn").checked = true;
   carProductList();
 });
+
+const deleteCart = (id) => {
+  $.post("../model/deleteCart.php", { id }, (data) => {
+    location.href = "../pages/order.php";
+    countCarrito();
+  });
+};
