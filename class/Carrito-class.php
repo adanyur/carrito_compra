@@ -90,4 +90,19 @@ class Carrito extends DBController
         );
         return $this->deleteDB($query, $params);
     }
+
+
+    function Calculo($id){
+        $query = "SELECT 
+                    round(sum(b.price * a.quantity),2) as subtotal
+                    from tbl_cart a
+                    join tbl_product b on (a.product_id=b.id)  
+                    WHERE member_id=?";
+            $params = array(                
+            array(
+                "param_type" => "s",
+                "param_value" => $id
+            ));
+            return $this->getDBResult($query, $params);
+    }
 }

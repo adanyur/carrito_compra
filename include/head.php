@@ -1,6 +1,3 @@
-<?php
-  define('RUTA_GLOBAL', dirname(dirname(__FILE__)));  
-?>
 <!doctype html>
 <html lang="es">
 <head>
