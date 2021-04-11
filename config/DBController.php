@@ -2,7 +2,7 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'cart');//Base de datos
 define('DB_USER', 'root');// Usuario de base de datos
-define('DB_PASS', '2009'); // Peruano1.   Contraseña de usuario MySQL
+define('DB_PASS', ''); // Peruano1.   Contraseña de usuario MySQL
 
 try {
 	$db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS);
@@ -38,12 +38,14 @@ class DBController
     {
 
         $sql_statement = $this->conn->prepare($query);
+
         if (!empty($params)) {
             $this->bindParams($sql_statement, $params);
         }
 
         $sql_statement->execute();
-        $result = $sql_statement->get_result();       
+        $result = $sql_statement->get_result(); 
+
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -102,11 +104,6 @@ class DBController
         }
         call_user_func_array(array($sql_statement,'bind_param'), $bind_params);
     }
-
-    function closeConexion(){
-        $db = null;
-    }
-
 
 }
 

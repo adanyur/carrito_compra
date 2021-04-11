@@ -16,6 +16,7 @@
 .img-border-radius {
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
+  height: 200px;
 }
 
 .container-button {
@@ -103,9 +104,9 @@
 .modal-btn:checked:after,
 .modal-btn:not(:checked):after {
   position: fixed;
-  top: 120px;
-  right: 90px;
-  z-index: 110;
+  top: 70px;
+  right: 20px;
+  z-index: 1033;
   width: 40px;
   border-radius: 3px;
   height: 30px;
@@ -115,19 +116,17 @@
   background-color: transparent;
   color: #102770;
   content: "X";
-  /* box-shadow: 0 12px 25px 0 rgba(16, 39, 112, 0.25); */
-  /* transition: all 300ms linear; */
   opacity: 0;
   pointer-events: none;
-  transform: translateY(20px);
-  /* transform: scale(1);
-  transition: opacity 250ms 500ms ease, transform 350ms 500ms ease; */
+  border: 1px solid;
+  transform: scale(0.6);
+  transition: opacity 300ms 300ms ease, transform 300ms 250ms ease;
 }
 
 .modal-btn:checked:hover:after,
 .modal-btn:not(:checked):hover:after {
-  background-color: #102770;
-  color: #ffeba7;
+  background-color: #000;
+  color: #fff;
 }
 
 .modal-btn:checked:after {
@@ -148,12 +147,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 1031;
   overflow-x: hidden;
   background-color: rgba(31, 32, 41, 0.75);
   pointer-events: none;
   opacity: 0;
   transition: opacity 300ms 700ms ease;
+  padding: 10px;
 }
 
 .modal-btn:checked ~ .modal {
@@ -164,7 +164,6 @@
 
 .modal-wrap {
   position: relative;
-  display: block;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -264,6 +263,18 @@
 
 #cartProductList {
   width: 100%;
-  overflow-y: scroll;
   height: 450px;
+}
+
+@media (min-width: 768px) and (min-width: 992px) {
+  .container-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .card-width {
+    width: 23%;
+    margin: 0 5px;
+  }
 }

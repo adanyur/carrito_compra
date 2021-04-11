@@ -4,13 +4,12 @@ require_once  RUTA_CLASS.'/include/head.php';
 require_once RUTA_CLASS."/class/Producto-class.php";
 ?>
 <div class="container-content">
-<form name="cart" id="add-product" class="scroll">
 <?php 
 $shoppingCart = new Producto();
 $product_array = $shoppingCart->getAllProduct();
 foreach ($product_array as $key => $value) {
 ?>
-<div class="card mb-4 card-shadow">
+<div class="card mb-4 card-shadow card-width">
   <img class="card-img-top img-border-radius" src="<?=$product_array[$key]["image"];?>" alt="Card image cap">
   <div class="card-body">
          <div class="info">
@@ -29,7 +28,6 @@ foreach ($product_array as $key => $value) {
   </div>
 </div>
 <?php } ?>
-</form>
 </div>
-<?php require_once  RUTA_CLASS.'/include/footer.php'?>
 <?php require_once  RUTA_CLASS.'/include/modal.php'?>
+<?php require_once  RUTA_CLASS.'/include/footer.php'?>

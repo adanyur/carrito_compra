@@ -92,7 +92,7 @@ class Carrito extends DBController
     }
 
 
-    function Calculo($id){
+    function CalculoCart($id){
         $query = "SELECT 
                     round(sum(b.price * a.quantity),2) as subtotal
                     from tbl_cart a

@@ -1,7 +1,6 @@
 $(document).ready(function () {
   countCarrito();
-  carProductList();
-  calculo();
+  // carProductList();
 });
 
 const AddCart = (id) => {
@@ -29,63 +28,55 @@ document.getElementById("listProducto").addEventListener("click", (e) => {
 });
 
 const cartProductLisModal = () => {
-  $.get("../model/productListById-model.php", (data) => {
-    let count = JSON.parse(data);
+  calculoCart();
+  $.get("../model/productListById-model.php", (value) => {
+    let data = JSON.parse(value);
     let template = "";
-    count.forEach((count, indice) => {
+    if (value === "null") {
       template += `
-      <tr>
-      <th scope="row">${indice + 1}</th>
-      <td>${count.name}</td>
-      <td>${count.quantity}</td>
-      <td>${count.price}</td>
-      <td>${count.total}</td>
-      </tr>  
+      <div class="card mb-2 card-shadow">
+          <div class="card-body card-padding">
+              <h1>No tiene nada en el carrito</h1>
+            </div>
+        </div>
       `;
-      document.getElementById("carProductListModal").innerHTML = template;
+      document.getElementById("cartProductList").innerHTML = template;
+      return;
+    }
+    data.forEach((data) => {
+      template += `<div class="card mb-2 card-shadow" width="100%">
+          <div class="card-body card-padding">
+              <div class="container-order">
+                  <div class="container-img">
+                      <img src="${data.image}" class="img-product">
+                  </div>
+                  <div class="container-order-detall">
+                      <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
+                      <span class="info-total">${data.total}</span>
+                      <span class="info-detalle">${data.name}</span>
+                  </div>
+              </div>
+            </div>
+        </div>
+        `;
+      document.getElementById("cartProductList").innerHTML = template;
     });
   });
 };
 
-const carProductList = () => {
-  $.get("../model/productListById-model.php", (value) => {
-    let data = JSON.parse(value);
-    let template = "";
-    data.forEach((data, indice) => {
-      template += `<div class="card mb-2 card-shadow">
-        <div class="card-body card-padding">
-            <div class="container-order">
-                <div class="container-img">
-                    <img src="${data.image}" class="img-product">
-                </div>
-                <div class="container-order-detall">
-                    <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
-                    <span class="info-total">${data.total}</span>
-                    <span class="info-detalle">${data.name}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-      `;
+const calculoCart = () => {
+  $.post("../model/calculo.php", (data) => {
+    let value = JSON.parse(data);
+    value.map((data) => {
+      document.getElementById("subtotal").innerHTML = `$${data.subtotal}`;
     });
-
-    document.getElementById("cartProductList").innerHTML = template;
   });
 };
 
 const deleteCart = (id) => {
   $.post("../model/deleteCart.php", { id }, (data) => {
     countCarrito();
-    carProductList();
-    calculo();
-  });
-};
-
-const calculo = () => {
-  $.post("../model/calculo.php", (data) => {
-    let value = JSON.parse(data);
-    value.map((data) => {
-      document.getElementById("subtotal").innerHTML = `$${data.subtotal}`;
-    });
+    calculoCart();
+    cartProductLisModal();
   });
 };
