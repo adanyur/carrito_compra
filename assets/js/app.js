@@ -1,12 +1,14 @@
 $(document).ready(function () {
   countCarrito();
-  // carProductList();
 });
 
 const AddCart = (id) => {
   let cantidad = document.getElementById("quantity" + id).value;
   let idproducto = document.getElementById("idproduct" + id).value;
   let usuario = document.getElementById("usuario" + id).value;
+  document.getElementById(`product${id}`).disabled = true;
+  document.getElementById(`product${id}`).style.background = "red";
+
   let data = { idproducto, cantidad, usuario };
   $.post("../pages/cart-list.php", data, (data) => {
     countCarrito();
@@ -36,7 +38,7 @@ const cartProductLisModal = () => {
       template += `
       <div class="card mb-2 card-shadow">
           <div class="card-body card-padding">
-              <h1>No tiene nada en el carrito</h1>
+              <h3>No tiene nada en el carrito</h3>
             </div>
         </div>
       `;
@@ -51,9 +53,9 @@ const cartProductLisModal = () => {
                       <img src="${data.image}" class="img-product">
                   </div>
                   <div class="container-order-detall">
-                      <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
-                      <span class="info-total">${data.total}</span>
-                      <span class="info-detalle">${data.name}</span>
+                  <span class="info-total">$${data.total}</span>
+                  <span class="info-detalle">${data.name}</span>
+                  <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
                   </div>
               </div>
             </div>
@@ -68,7 +70,9 @@ const calculoCart = () => {
   $.post("../model/calculo.php", (data) => {
     let value = JSON.parse(data);
     value.map((data) => {
-      document.getElementById("subtotal").innerHTML = `$${data.subtotal}`;
+      document.getElementById("subtotal").innerHTML = `$${
+        data.subtotal || 0.0
+      }`;
     });
   });
 };

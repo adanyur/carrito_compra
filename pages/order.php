@@ -1,6 +1,7 @@
 <?php 
 define('RUTA_CLASS', dirname(dirname(__FILE__))); 
 require_once  RUTA_CLASS.'/include/head.php';
+require_once  RUTA_CLASS.'/include/nav.php';
 ?>
 <div class="container-content">
     <div id="cartProductList"></div>
