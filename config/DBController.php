@@ -2,7 +2,7 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'cart');//Base de datos
 define('DB_USER', 'root');// Usuario de base de datos
-define('DB_PASS', ''); // Peruano1.   Contraseña de usuario MySQL
+define('DB_PASS', '2009'); // Peruano1.   Contraseña de usuario MySQL
 
 try {
 	$db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS);

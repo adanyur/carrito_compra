@@ -40,6 +40,7 @@ const cartProductLisModal = () => {
       document.getElementById("cartProductList").innerHTML = template;
       return;
     }
+
     data.forEach((data) => {
       template += `<div class="card mb-2 card-shadow" width="100%">
           <div class="card-body card-padding">

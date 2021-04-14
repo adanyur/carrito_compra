@@ -9,9 +9,15 @@
 }
 
 .card-shadow {
-  /* box-shadow: 0 10px 25px rgba(92, 99, 105, 0.2); */
-  box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   border-radius: 1.5rem;
+  border: 0;
+}
+
+.card-shadow:hover {
+  box-shadow: 0 8px 6px -6px black;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
 }
 
 .img-border-radius {
@@ -327,7 +333,13 @@
   width: 95px;
   height: 95px;
   border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.container-imgen .item .image-category:hover {
   box-shadow: 0 8px 6px -6px black;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
 }
 
 @media (min-width: 768px) and (min-width: 992px) {
