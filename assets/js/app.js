@@ -42,7 +42,7 @@ const cartProductLisModal = () => {
     }
 
     data.forEach((data) => {
-      template += `<div class="card mb-2 card-shadow" width="100%">
+      template += `<div class="card mb-2 card-shadow " >
           <div class="card-body card-padding">
               <div class="container-order">
                   <div class="container-img">
@@ -101,10 +101,10 @@ const SearchCategoryProduct = (id) => {
   $.get(`../model/categoryListByid-model.php?id=${id}`, (data) => {
     let template = "";
     let categoryId = JSON.parse(data);
-    template += `<div class="container-content">`;
+    template += `<div class="container-content animate__animated animate__fadeIn">`;
     categoryId.forEach((data) => {
       template += `
-      <div class="card mb-4 card-shadow card-width">
+      <div class="card mb-4 card-shadow card-width ">
       <img class="card-img-top img-border-radius" src="${data.image}" alt="Card image cap">
       <div class="card-body">
           <div class="card-info">
