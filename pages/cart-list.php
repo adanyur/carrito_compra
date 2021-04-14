@@ -1,6 +1,6 @@
 <?php 
 define('RUTA_CLASS', dirname(dirname(__FILE__)));
-require_once RUTA_CLASS."\class\Carrito-class.php";
+require_once RUTA_CLASS."/class/Carrito-class.php";
 $shoppingCart = new Carrito();
 
 $idproducto = isset($_POST['idproducto']) ? $_POST['idproducto'] : '';

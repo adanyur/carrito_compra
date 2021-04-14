@@ -1,6 +1,6 @@
 <?php
 define('RUTA', dirname(dirname(__FILE__)));
-require_once RUTA."\config\DBController.php";
+require_once RUTA."/config/DBController.php";
 
 class Carrito extends DBController
 {   
