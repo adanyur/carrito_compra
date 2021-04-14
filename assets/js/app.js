@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  listCategory();
   countCarrito();
 });
 
@@ -35,13 +36,7 @@ const cartProductLisModal = () => {
     let data = JSON.parse(value);
     let template = "";
     if (value === "null") {
-      template += `
-      <div class="card mb-2 card-shadow">
-          <div class="card-body card-padding">
-              <h3>No tiene nada en el carrito</h3>
-            </div>
-        </div>
-      `;
+      template += `<h4 class="text-center">No tiene nada el carrito</h4>`;
       document.getElementById("cartProductList").innerHTML = template;
       return;
     }
@@ -82,5 +77,57 @@ const deleteCart = (id) => {
     countCarrito();
     calculoCart();
     cartProductLisModal();
+  });
+};
+
+const listCategory = () => {
+  $.get("../model/category-list.php", (data) => {
+    let template = "";
+    let category = JSON.parse(data);
+    template += '<div class="item"></div>';
+    category.forEach((data) => {
+      template += `
+        <div class="item" onclick="SearchCategoryProduct(${data.id})">
+            <img src="${data.image}" class="image-category">
+        </div>
+      `;
+    });
+    document.getElementById("listCategory").innerHTML = template;
+  });
+};
+
+const SearchCategoryProduct = (id) => {
+  $.get(`../model/categoryListByid-model.php?id=${id}`, (data) => {
+    let template = "";
+    let categoryId = JSON.parse(data);
+    template += `<div class="container-content">`;
+    categoryId.forEach((data) => {
+      template += `
+      <div class="card mb-4 card-shadow card-width">
+      <img class="card-img-top img-border-radius" src="${data.image}" alt="Card image cap">
+      <div class="card-body">
+          <div class="card-info">
+             <div class="info-title">                
+                ${data.name}
+             </div>
+             <div class="info-price-quanty">
+                <div class="info-price">
+                   ${data.price}
+                </div>
+                <div class="info-quanty">
+                   <input type="number" id="quantity${data.id}" name="quantity"  value=1 class="input-control">
+                </div>
+          </div>
+         <input type="hidden" id="idproduct${data.id}" name="id" value="${data.id}">
+         <input type="hidden" id="usuario${data.id}" name="usuario" value=10000>
+          </div>
+          <button  type="button" id="product${data.id}" onclick="AddCart(${data.id})" class="btn-add button-add-product">add to cart</button>
+      </div>
+    </div>
+    `;
+    });
+    template += `</div>`;
+    document.getElementById("listAll").style.display = "none";
+    document.getElementById("searchCategoryProduct").innerHTML = template;
   });
 };
