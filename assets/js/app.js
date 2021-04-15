@@ -32,9 +32,11 @@ document.getElementById("listProducto").addEventListener("click", (e) => {
 
 const cartProductLisModal = () => {
   calculoCart();
+
   $.get("../model/productListById-model.php", (value) => {
     let data = JSON.parse(value);
     let template = "";
+
     if (value === "null") {
       template += `<h4 class="text-center">No tiene nada el carrito</h4>`;
       document.getElementById("cartProductList").innerHTML = template;
@@ -42,17 +44,34 @@ const cartProductLisModal = () => {
     }
 
     data.forEach((data) => {
-      template += `<div class="card mb-2 card-shadow " >
-          <div class="card-body card-padding">
+      template += `<div class="card mb-2 card-shadow card-shadow-2" >
+            <div class="card-body card-padding">
               <div class="container-order">
                   <div class="container-img">
                       <img src="${data.image}" class="img-product">
                   </div>
                   <div class="container-order-detall">
-                  <span class="info-total">$${data.total}</span>
-                  <span class="info-detalle">${data.name}</span>
-                  <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
+                  <div class="detalle-head">
+                    <span class="info-detalle">${data.name}</span>
+                    <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
                   </div>
+                  <div class="detalle-body">
+                    <div class="detalle-item">
+                      <span class="head-info">Cantidad</span>
+                      <span class="body-info">${data.quantity}</span>
+                    </div>
+                    <div class="detalle-item border-separador">
+                    <span class="head-info">Precio</span>
+                      <span class="body-info">${data.price}</span>
+                    </div>
+                    <div class="detalle-item">
+                    <span class="head-info">Total</span>
+                      <span class="body-info">${data.total}</span>
+                    </div>
+                  </div>
+
+                </div>
+
               </div>
             </div>
         </div>
@@ -89,7 +108,7 @@ const listCategory = () => {
     category.forEach((data) => {
       template += `
         <div class="item" onclick="SearchCategoryProduct(${data.id})">
-            <img src="${data.image}" class="image-category">
+            <img src="${data.image}" class="image-category animate__animated animate__fadeIn">
         </div>
       `;
     });
