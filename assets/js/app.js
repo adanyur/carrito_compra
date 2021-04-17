@@ -3,6 +3,45 @@ $(document).ready(function () {
   countCarrito();
 });
 
+/***************LOGIN****************/
+
+const login = () => {
+  let user = document.getElementById("user").value;
+  let password = document.getElementById("password").value;
+
+  $.post("../model/Login.php", { user, password }, (data) => {
+    console.log(data);
+  });
+};
+
+const register = () => {
+  let firstname = document.getElementById("firstname").value;
+  let lastname = document.getElementById("lastname").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  let comment = document.getElementById("comment").value;
+  let zip = document.getElementById("zip").value;
+  let town = document.getElementById("town").value;
+  let cell = document.getElementById("cell").value;
+
+  const data = {
+    firstname,
+    lastname,
+    email,
+    password,
+    comment,
+    town,
+    zip,
+    cell,
+  };
+
+  $.post("../model/user-register.php", data, (data) => {
+    console.log(data);
+  });
+};
+
+/************************CARRITTO*************************/
+
 const AddCart = (id) => {
   let cantidad = document.getElementById("quantity" + id).value;
   let idproducto = document.getElementById("idproduct" + id).value;
@@ -127,7 +166,7 @@ const SearchCategoryProduct = (id) => {
       <img class="card-img-top img-border-radius" src="${data.image}" alt="Card image cap">
       <div class="card-body">
           <div class="card-info">
-             <div class="info-title">                
+             <div class="info-title">
                 ${data.name}
              </div>
              <div class="info-price-quanty">

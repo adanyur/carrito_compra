@@ -3,7 +3,6 @@
       <div class="modal-wrap">
         <div class="modal-head">
           <h1 class="modal-title">Carrito</h1>
-          <div class="modal-close">X</div>
         </div>
         <div class="modal-body">
         <div id="cartProductList"></div>

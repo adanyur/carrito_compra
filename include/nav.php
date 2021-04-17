@@ -9,7 +9,9 @@
         <li class="nav-item"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="contact.html">Contact <span class="sr-only">(current)</span></a> </li>
-        <li class="nav-item"> <a class="nav-link" href="contact.html">Carrito <span class="sr-only">(current)</span></a> </li>
+        <li class="nav-item"> <a class="nav-link" href="../pages/login.php">Login <span class="sr-only">(current)</span></a> </li>
+        <li class="nav-item"> <a class="nav-link" href="../pages/user-register.php">Register<span class="sr-only">(current)</span></a> </li>
+        
   </ul> 
 </div>
 <div class="container-cart-count">
