@@ -366,7 +366,7 @@
 
 .card-form {
   position: relative;
-  /* width: 360px; */
+
   width: 100%;
   padding: 4rem 2rem;
   border-radius: 2rem;
@@ -518,7 +518,10 @@
   }
 
   /************LOGIN***********/
-
+  .card-form {
+    width: 360px;
+  }
+  /*************FOOTER************/
   .container-footer {
     flex-direction: row;
   }
