@@ -1,27 +1,31 @@
 const showAuthLogin = () => {
-  template = `<form >
-                <h1 class="form-title">Sign in</h1>
-                <div class="group-form">
-                    <input type="text" id="user" class="form-input" placeholder=" ">
-                    <label class="label-control">Email</label>
-                </div>
-                <div class="group-form">
-                    <input type="text" id="password" class="form-input" placeholder=" ">
-                    <label class="label-control">Password</label>
-                </div>
-                <div class="group-form">
-                    <button type="button" onclick="login()" class="btn-login">Sign in</button>
-                </div>
-            </form>`;
+  template = `
+            <div class="container-form animate__animated animate__fadeIn">
+                <form>
+                    <h1 class="form-title">Login in</h1>
+                    <div class="group-form">
+                        <input type="text" id="user" class="form-input" placeholder=" ">
+                        <label class="label-control">Email</label>
+                    </div>
+                    <div class="group-form">
+                        <input type="text" id="password" class="form-input" placeholder=" ">
+                        <label class="label-control">Password</label>
+                    </div>
+                    <div class="group-form">
+                        <button type="button" onclick="login()" class="btn-login">Sign in</button>
+                    </div>
+                </form>
+            </div>
+            `;
 
   document.getElementById("authDynamic").innerHTML = template;
 };
 
 const showAuthRegister = () => {
   template = `
-  <div class="container-register">
+  <div class="container-form container-form-register animate__animated animate__fadeIn">
     <form>
-    <h1 class="form-title">Registrarse</h1>
+    <h1 class="form-title">Register</h1>
     <div class="group-form">
         <input type="text" id="firstname" class="form-input" placeholder=" ">
         <label class="label-control">First name</label>

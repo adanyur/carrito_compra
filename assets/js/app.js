@@ -114,7 +114,7 @@ const auth = () => {
         <li class="nav-item" onclick="showAuthRegister()">Register</li>
       </ul>
     </div>
-    <div class="container-form" id="authDynamic"></div>
+    <div id="authDynamic"></div>
     `;
   document.getElementById("templateDynamic").innerHTML = template;
 };

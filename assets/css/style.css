@@ -367,11 +367,6 @@
   height: 100vh;
 }
 
-.container-form-register {
-  padding: 1rem;
-  overflow-y: scroll;
-}
-
 .card-form {
   position: relative;
   width: 100%;
@@ -391,6 +386,7 @@
 .form-title {
   font-weight: 400;
   margin-bottom: 3rem;
+  text-align: center;
 }
 
 .group-form {
@@ -488,21 +484,20 @@
   font-weight: 600;
 }
 
+.nav .nav-item:hover {
+  background-color: #fff;
+}
+
 .nav .nav-item:active {
   background-color: #fff;
 }
 
-.nav .nav-item > .test {
-  background-color: #fff;
-}
-
-/* .nav .nav-item:hover {
-  border: 1px solid;
-} */
-
-.container-register {
+.container-form-register {
+  padding: 1rem;
   overflow-y: scroll;
+  height: 450px;
 }
+
 /*************CATEGORY*****************/
 .container-imgen {
   display: flex;
