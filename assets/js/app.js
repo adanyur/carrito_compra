@@ -64,23 +64,78 @@ const countCarrito = () => {
   });
 };
 
-document.getElementById("listProducto").addEventListener("click", (e) => {
+/*********MODAL********/
+const openModal = (type) => {
   document.getElementById("modal-btn").checked = true;
-  cartProductLisModal();
-});
+  switch (type) {
+    case "CART": {
+      cartProductLisModal();
+    }
+    case "AUTH": {
+      auth();
+    }
+  }
+};
+
+const viewDetail = (idproduct) => {
+  let template = "";
+  document.getElementById("modal-btn").checked = true;
+  $.get(`../model/productById-model.php?id=${idproduct}`, (data) => {
+    let detail = JSON.parse(data);
+    detail.forEach((detail) => {
+      template += `
+        <div class="container-view-detail">
+              <div class="header-view-detail">
+                  <span class="view-detail-title">${detail.name}</span>
+              </div>
+              <div class="body-view-detail">
+                    <div class="body-view-detail-img">
+                      <img src="${detail.image}" class="view-detail-img">
+                    </div>
+                    <div class="body-view-detail-detail">
+                      <span class="detail-title">Description</span>
+                      <span class="detail-text">${detail.detail1}</span>
+                    </div>
+              </div>
+              <div class="footer-view-detail"></div>
+        </div>     
+      `;
+
+      document.getElementById("templateDynamic").innerHTML = template;
+    });
+  });
+};
+
+const auth = () => {
+  const template = `
+    <div class="container-nav">
+      <ul class="nav">
+        <li class="nav-item test" onclick="showAuthLogin()">Login</li>
+        <li class="nav-item" onclick="showAuthRegister()">Register</li>
+      </ul>
+    </div>
+    <div class="container-form" id="authDynamic"></div>
+    `;
+  document.getElementById("templateDynamic").innerHTML = template;
+};
 
 const cartProductLisModal = () => {
-  calculoCart();
-
   $.get("../model/productListById-model.php", (value) => {
     let data = JSON.parse(value);
     let template = "";
 
     if (value === "null") {
       template += `<h4 class="text-center">No tiene nada el carrito</h4>`;
-      document.getElementById("cartProductList").innerHTML = template;
+      document.getElementById("templateDynamic").innerHTML = template;
       return;
     }
+
+    template += `
+    <div class="modal-head">
+        <h1 class="modal-title">Carrito</h1>
+    </div>
+    <div class="modal-body">
+    `;
 
     data.forEach((data) => {
       template += `<div class="card mb-2 card-shadow card-shadow-2" >
@@ -108,15 +163,26 @@ const cartProductLisModal = () => {
                       <span class="body-info">${data.total}</span>
                     </div>
                   </div>
-
                 </div>
-
               </div>
             </div>
         </div>
         `;
-      document.getElementById("cartProductList").innerHTML = template;
     });
+
+    template += `</div>
+                  <div class="modal-footer">
+                    <button class="btn-add">
+                    <span id="subtotal" class="info-payment" ></span>|
+                    <span class="info-payment">
+                      <img src="../assets/icon/hand.svg">
+                    </span>
+                    </button>
+                  </div>
+                `;
+
+    document.getElementById("templateDynamic").innerHTML = template;
+    calculoCart();
   });
 };
 
@@ -171,7 +237,7 @@ const SearchCategoryProduct = (id) => {
              </div>
              <div class="info-price-quanty">
                 <div class="info-price">
-                   ${data.price}
+                   $${data.price}
                 </div>
                 <div class="info-quanty">
                    <input type="number" id="quantity${data.id}" name="quantity"  value=1 class="input-control">
@@ -180,7 +246,14 @@ const SearchCategoryProduct = (id) => {
          <input type="hidden" id="idproduct${data.id}" name="id" value="${data.id}">
          <input type="hidden" id="usuario${data.id}" name="usuario" value=10000>
           </div>
-          <button  type="button" id="product${data.id}" onclick="AddCart(${data.id})" class="btn-add button-add-product">add to cart</button>
+          <div class="container-button">
+            <button  type="button" id="product${data.id}" onclick="AddCart(${data.id})" class="btn-add button-add-product">
+            <img src="../assets/icon/add-to-cart.svg" class="img-icon">
+            </button>
+            <button  type="button" id="product${data.id}" onclick="AddCart(${data.id})" class="btn-add btn-secondary-product">
+            <img src="../assets/icon/loupe.svg" class="img-icon">
+            </button>
+          </div>
       </div>
     </div>
     `;

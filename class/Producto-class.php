@@ -11,4 +11,12 @@ class Producto extends DBController
         $productResult = $this->getDBResult($query);
         return $productResult;
     }
+
+    function getProductById($idProduct){
+        $query = "SELECT * FROM tbl_product where id=?";
+        $params = array(array("param_type" => "s","param_value" => $idProduct));    
+        
+        return $this->getDBResult($query, $params);
+    }
+
 }

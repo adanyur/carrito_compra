@@ -9,14 +9,17 @@
         <li class="nav-item"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="contact.html">Contact <span class="sr-only">(current)</span></a> </li>
-        <li class="nav-item"> <a class="nav-link" href="../pages/login.php">Login <span class="sr-only">(current)</span></a> </li>
-        <li class="nav-item"> <a class="nav-link" href="../pages/user-register.php">Register<span class="sr-only">(current)</span></a> </li>
-        
+        <!-- <li class="nav-item"> <a class="nav-link" href="../pages/login.php">Login <span class="sr-only">(current)</span></a> </li>
+        <li class="nav-item"> <a class="nav-link" href="../pages/user-register.php">Register<span class="sr-only">(current)</span></a> </li> -->
   </ul> 
 </div>
 <div class="container-cart-count">
-  <button type="button" class="btn btn-black"  id="listProducto">
-    <img src="../assets/icon/shopping-cart.svg" style="bacground:#fff">   
+  <button type="button" class="btn btn-black"  onclick="openModal('CART')">
+    <img src="../assets/icon/shopping-cart.svg" >   
     <span class="badge badge-light" id="countCarrito"></span>
   </button>
+    <button type="button" class="btn btn-black" onclick="openModal('AUTH')">
+      <img src="../assets/icon/user.svg">
+    </button>
+</div>
 </nav>

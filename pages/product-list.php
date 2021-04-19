@@ -31,7 +31,14 @@ foreach ($product_array as $key => $value) {
 	   <input type="hidden" id="idproduct<?=$product_array[$key]["id"];?>" name="id" value="<?=$product_array[$key]["id"];?>">
 	   <input type="hidden" id="usuario<?=$product_array[$key]["id"];?>" name="usuario" value=10000>
       </div>
-      <button  type="button" id="product<?=$product_array[$key]['id'];?>" onclick="AddCart(<?=$product_array[$key]['id'];?>)" class="btn-add button-add-product">add to cart</button>
+      <div class="container-button">
+            <button  type="button" id="product<?=$product_array[$key]['id'];?>" onclick="AddCart(<?=$product_array[$key]['id'];?>)" class="btn-add button-add-product">
+               <img src="../assets/icon/add-to-cart.svg" class="img-icon">
+            </button>
+            <button  type="button" id="product<?=$product_array[$key]['id'];?>" onclick="viewDetail(<?=$product_array[$key]['id'];?>)" class="btn-add btn-secondary-product">
+               <img src="../assets/icon/loupe.svg" class="img-icon">
+            </button>
+      </div>
   </div>
 </div>
 <?php } ?>

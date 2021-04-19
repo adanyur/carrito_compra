@@ -1,8 +1,11 @@
-<?php
-define('RUTA_CLASS', dirname(dirname(__FILE__))); 
-require_once  RUTA_CLASS.'/include/head.php';
-?>
-    <div class="container-form container-form-login">       
+<input class="modal-btn" type="checkbox" id="modal-login-register" name="modal-login-register" />
+    <div class="modal">
+      <div class="modal-wrap">
+        <!-- <div class="modal-head">
+          <h1 class="modal-title"></h1>
+        </div> -->
+        <div class="modal-body">
+        <div class="container-form container-form-login">       
             <div class="card-form">
                 <form >
                     <h1 class="form-title">Sign un</h1>
@@ -19,8 +22,12 @@ require_once  RUTA_CLASS.'/include/head.php';
                     </div>
                 </form>
                 <div class="group-form">
-                        <a class="link" href="index.php?action=registrar" >Registrarse</a>
+                        <a class="link" href="#register">Registrarse</a>
                 </div>
             </div>
-    </div>
-<?php require_once  RUTA_CLASS.'/include/footer.php'?>
+          </div>      
+         </div>
+         <!-- <div class="modal-footer">
+         </div> -->
+      </div>
+</div>
