@@ -13,7 +13,20 @@ $zip = isset($_POST["zip"])?$_POST["zip"]:'';
 $town = isset($_POST["town"])?$_POST["town"]:'';
 $cell = isset($_POST["cell"])?$_POST["cell"]:'';
 
-$_user->registrar($firstname,$lastname,$email,$password,$comment,$zip,$town,$cell);
+
+// echo $firstname."<br>";
+// echo $lastname."<br>";
+// echo $email."<br>";
+// echo $password."<br>";
+// echo $comment."<br>";
+// echo $zip."<br>";
+// echo $town."<br>";
+// echo $cell."<br>";
+
+
+
+print_r($_user->registrar($firstname,$lastname,$email,$password,$comment,$zip,$town,$cell));
+// echo $_user->registrar($firstname,$lastname,$email,$password,$comment,$zip,$town,$cell);
 
 
 ?>

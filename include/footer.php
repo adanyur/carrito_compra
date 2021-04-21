@@ -1,15 +1,12 @@
 <div class="container-footer">
     <div class="footer-item">
-        <img src="../assets/icon/icon-whatsapp.png" class="footer-image">
-        <h6>Queries by whass upp</h6>
+        <img src="../assets/icon/whatsapp.svg" class="footer-image">
     </div>
     <div class="footer-item">
-    <img src="../assets/icon/logo.png" class="mb-4">
-        <h6>2021 Mr. Bedoya | all Rigths Reserved</h6>
+    <a href="https://misionya.com/"><img src="../assets/icon/www.svg" class="footer-image"></a>
     </div>
     <div class="footer-item">
-    <img src="../assets/icon/correo.png" class="footer-image">
-        <h6>marcosbedoya@gmail.com</h6>
+       <img src="../assets/icon/email.svg" class="footer-image" onclick="openModal('EMAIL')">
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>

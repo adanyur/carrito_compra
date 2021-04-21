@@ -1,7 +1,7 @@
 const showAuthLogin = () => {
   template = `
             <div class="container-form animate__animated animate__fadeIn">
-                <form>
+                <form autocomplete="off">
                     <h1 class="form-title">Login in</h1>
                     <div class="group-form">
                         <input type="text" id="user" class="form-input" placeholder=" ">
@@ -24,7 +24,7 @@ const showAuthLogin = () => {
 const showAuthRegister = () => {
   template = `
   <div class="container-form container-form-register animate__animated animate__fadeIn">
-    <form>
+    <form autocomplete="off">
     <h1 class="form-title">Register</h1>
     <div class="group-form">
         <input type="text" id="firstname" class="form-input" placeholder=" ">

@@ -34,7 +34,7 @@ const register = () => {
     zip,
     cell,
   };
-
+  console.log(data);
   $.post("../model/user-register.php", data, (data) => {
     console.log(data);
   });
@@ -46,8 +46,8 @@ const AddCart = (id) => {
   let cantidad = document.getElementById("quantity" + id).value;
   let idproducto = document.getElementById("idproduct" + id).value;
   let usuario = document.getElementById("usuario" + id).value;
-  document.getElementById(`product${id}`).disabled = true;
-  document.getElementById(`product${id}`).style.background = "red";
+  // document.getElementById(`product${id}`).disabled = true;
+  // document.getElementById(`product${id}`).style.background = "red";
 
   let data = { idproducto, cantidad, usuario };
   $.post("../pages/cart-list.php", data, (data) => {
@@ -66,13 +66,20 @@ const countCarrito = () => {
 
 /*********MODAL********/
 const openModal = (type) => {
+  console.log(type);
   document.getElementById("modal-btn").checked = true;
   switch (type) {
     case "CART": {
       cartProductLisModal();
+      break;
     }
     case "AUTH": {
       auth();
+      break;
+    }
+    case "EMAIL": {
+      email();
+      break;
     }
   }
 };
@@ -116,6 +123,28 @@ const auth = () => {
     </div>
     <div id="authDynamic"></div>
     `;
+  document.getElementById("templateDynamic").innerHTML = template;
+};
+
+const email = () => {
+  let template = `
+<div class="container-form animate__animated animate__fadeIn">
+  <form autocomplete="off">
+      <h1 class="form-title">Contactenos</h1>
+      <div class="group-form">
+          <input type="text" id="user" class="form-input" placeholder=" ">
+          <label class="label-control">Email</label>
+      </div>
+      <div class="group-form group-textarea">
+        <textarea class="form-input" placeholder=" " rows="5" cols="10"></textarea>
+        <label class="label-control">Comentario</label>
+      </div>
+      <div class="group-form">
+          <button type="button" onclick="login()" class="btn-login">Sign in</button>
+      </div>
+  </form>
+</div>
+`;
   document.getElementById("templateDynamic").innerHTML = template;
 };
 

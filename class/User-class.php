@@ -26,7 +26,7 @@ class User extends DBController
 
 
     function registrar($firstname,$lastname,$email,$password,$comment,$zip,$town,$cell){
-        $query = "INSERT INTO tbluser (Firstname,Lastname,Email,Password,Direcc,zip,town,cell) VALUES (?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO tbluser (Firstname,Lastname,Email,Password,Direcc,zip,town,cell) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $params = array(
             array(
@@ -65,4 +65,5 @@ class User extends DBController
 
             return $this->insertDB($query, $params);
     }
+
 }

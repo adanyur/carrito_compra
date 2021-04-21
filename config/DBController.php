@@ -62,6 +62,7 @@ class DBController
 
     function insertDB($query, $params = array())
     {
+ 
         $sql_statement = $this->conn->prepare($query);
         if (! empty($params)) {
             $this->bindParams($sql_statement, $params);
@@ -70,7 +71,6 @@ class DBController
         $id = mysqli_insert_id ( $this->conn );
         return $id;
     }
-  
 
     function updateDB($query, $params = array())
     {
@@ -81,6 +81,7 @@ class DBController
         $sql_statement->execute();
     }
 
+    
     function deleteDB($query,$params){
         $sql_statement = $this->conn->prepare($query);
         if (! empty($params)) {
