@@ -4,7 +4,6 @@ require_once  RUTA_CLASS.'/include/head.php';
 require_once  RUTA_CLASS.'/include/nav.php';
 require_once RUTA_CLASS."/class/Producto-class.php";
 ?>
-
 <div class="container-imgen" id="listCategory"></div>
 <div id="listAll">
 <div class="container-content">

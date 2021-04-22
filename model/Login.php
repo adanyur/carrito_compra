@@ -3,17 +3,20 @@ define('RUTA_CLASS', dirname(dirname(__FILE__)));
 require_once RUTA_CLASS."/class/User-class.php";
 
 $_user = new User();
-
 $user = isset($_POST['user']) ? $_POST['user'] : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
+$count = $_user->Login($user,$password);
 
 
-if($_user->Login($user,MD5($password))){
-    die(true);
+
+if($count[0]['count'] > 0){
+    die('inicio sesion');
 }else{
-    die(false);
+    die('no inicio ');
 }
 
-//die(json_encode());
+// foreach($count as $key => $value){
+//     $count[$key]['count'] > 0? die(true): die(false);
+// }
 
 ?>

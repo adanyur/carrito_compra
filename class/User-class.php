@@ -7,7 +7,7 @@ class User extends DBController
 
     function Login($email,$password){
 
-        $query = "SELECT count(*) FROM tbluser WHERE email=? AND password=?";
+        $query = "SELECT count(*) as count FROM tbluser WHERE email=? AND password=?";
 
         $params = array(
             array(
@@ -26,44 +26,9 @@ class User extends DBController
 
 
     function registrar($firstname,$lastname,$email,$password,$comment,$zip,$town,$cell){
-        $query = "INSERT INTO tbluser (Firstname,Lastname,Email,Password,Direcc,zip,town,cell) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $params = array(
-            array(
-                "param_type" => "i",
-                "param_value" => $firstname
-            ),
-            array(
-                "param_type" => "i",
-                "param_value" => $lastname
-            ),
-            array(
-                "param_type" => "i",
-                "param_value" => $email
-            ),
-            array(
-                "param_type" => "i",
-                "param_value" => $password
-            ),
-            array(
-                "param_type" => "i",
-                "param_value" => $comment
-            ),
-            array(
-                "param_type" => "i",
-                "param_value" => $zip
-            ),
-            array(
-                "param_type" => "i",
-                "param_value" => $town
-            ),
-            array(
-                "param_type" => "i",
-                "param_value" => $cell
-            )
-        );
-
-            return $this->insertDB($query, $params);
+        $query = "INSERT INTO tbluser (firstname,lastname,email,password,direcc,zip,town,cell) VALUES 
+                  ('$firstname','$lastname', '$email', '$password', '$comment', '$zip', '$town', '$cell')";
+            return $this->insertDB2($query);
     }
 
 }
