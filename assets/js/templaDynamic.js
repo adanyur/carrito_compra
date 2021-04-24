@@ -1,29 +1,33 @@
 const showAuthLogin = () => {
-  template = `
-            <div class="container-form animate__animated animate__fadeIn">
-                <form autocomplete="off">
-                    <h1 class="form-title">Login in</h1>
-                    <div class="group-form">
-                        <input type="text" id="user" class="form-input" placeholder=" ">
-                        <label class="label-control">Email</label>
-                    </div>
-                    <div class="group-form">
-                        <input type="text" id="password" class="form-input" placeholder=" ">
-                        <label class="label-control">Password</label>
-                    </div>
-                    <div class="group-form">
-                        <button type="button" onclick="login()" class="btn-login">Sign in</button>
-                    </div>
-                </form>
-            </div>
-            `;
-
-  document.getElementById("authDynamic").innerHTML = template;
+  document.getElementById("register").style.display = "none";
+  document.getElementById("login").style.display = "block";
 };
 
 const showAuthRegister = () => {
-  template = `
-  <div class="container-form container-form-register animate__animated animate__fadeIn">
+  document.getElementById("login").style.display = "none";
+  document.getElementById("register").style.display = "block";
+};
+
+const templateDynamic = () => {
+  return `
+            <div class="container-form animate__animated animate__fadeIn" id="login" style="display:block">
+            <form autocomplete="off">
+                <h1 class="form-title">Login in</h1>
+                <div class="group-form">
+                    <input type="text" id="user" class="form-input" placeholder=" ">
+                    <label class="label-control">Email</label>
+                </div>
+                <div class="group-form">
+                    <input type="text" id="password" class="form-input" placeholder=" ">
+                    <label class="label-control">Password</label>
+                </div>
+                <div class="group-form">
+                    <button type="button" onclick="login()" class="btn-login">Sign in</button>
+                </div>
+            </form>
+        </div>
+
+    <div class="container-form container-form-register animate__animated animate__fadeIn" id="register" style="display:none">
     <form autocomplete="off">
     <h1 class="form-title">Register</h1>
     <div class="group-form">
@@ -39,7 +43,7 @@ const showAuthRegister = () => {
         <label class="label-control">Email</label>
     </div>
     <div class="group-form">
-        <input type="password" id="password" class="form-input" placeholder=" ">
+        <input type="password" id="passwor" class="form-input" placeholder=" ">
         <label class="label-control">Password</label>
     </div>
     <div class="group-form">
@@ -62,7 +66,5 @@ const showAuthRegister = () => {
         <button type="button" onclick="register()" class="btn-login">Sign un</button>
     </div>
   </form>
-  </div>  
-  `;
-  document.getElementById("authDynamic").innerHTML = template;
+  </div> `;
 };

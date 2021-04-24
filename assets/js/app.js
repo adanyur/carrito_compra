@@ -1,6 +1,8 @@
 $(document).ready(function () {
   listCategory();
   countCarrito();
+
+  //  ValidacionUsario();
 });
 
 /***************LOGIN****************/
@@ -18,7 +20,7 @@ const register = () => {
   let firstname = document.getElementById("firstname").value;
   let lastname = document.getElementById("lastname").value;
   let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
+  let password = document.getElementById("passwor").value;
   let comment = document.getElementById("comment").value;
   let zip = document.getElementById("zip").value;
   let town = document.getElementById("town").value;
@@ -34,9 +36,22 @@ const register = () => {
     zip,
     cell,
   };
-  console.log(data);
+  let template = "";
   $.post("../model/user-register.php", data, (data) => {
-    console.log(data);
+    template = `
+    <div class="container-form animate__animated animate__fadeIn">
+      <div class="alert alert-success" role="alert">
+            ${data}
+      </div>
+    </div>
+    `;
+    document.getElementById("register").style.display = "none";
+    document.getElementById("message-auth").innerHTML = template;
+    setTimeout(() => {
+      document.getElementById("message-auth").style.display = "none";
+
+      document.getElementById("login").style.display = "block";
+    }, 3000);
   });
 };
 
@@ -66,7 +81,6 @@ const countCarrito = () => {
 
 /*********MODAL********/
 const openModal = (type) => {
-  console.log(type);
   document.getElementById("modal-btn").checked = true;
   switch (type) {
     case "CART": {
@@ -117,11 +131,12 @@ const auth = () => {
   const template = `
     <div class="container-nav">
       <ul class="nav">
-        <li class="nav-item test" onclick="showAuthLogin()">Login</li>
+        <li class="nav-item" onclick="showAuthLogin()">Login</li>
         <li class="nav-item" onclick="showAuthRegister()">Register</li>
       </ul>
     </div>
-    <div id="authDynamic"></div>
+    ${templateDynamic()}
+    <div id="message-auth"></div>
     `;
   document.getElementById("templateDynamic").innerHTML = template;
 };
@@ -279,7 +294,7 @@ const SearchCategoryProduct = (id) => {
             <button  type="button" id="product${data.id}" onclick="AddCart(${data.id})" class="btn-add button-add-product">
             <img src="../assets/icon/add-to-cart.svg" class="img-icon">
             </button>
-            <button  type="button" id="product${data.id}" onclick="AddCart(${data.id})" class="btn-add btn-secondary-product">
+            <button  type="button" id="product${data.id}" onclick="viewDetail(${data.id})" class="btn-add btn-secondary-product">
             <img src="../assets/icon/loupe.svg" class="img-icon">
             </button>
           </div>
@@ -290,5 +305,16 @@ const SearchCategoryProduct = (id) => {
     template += `</div>`;
     document.getElementById("listAll").style.display = "none";
     document.getElementById("searchCategoryProduct").innerHTML = template;
+  });
+};
+
+const ValidacionUsario = () => {
+  let template = "";
+  $.get(`../model/cookies.php`, (data) => {
+    template = `<button type="button" class="btn btn-black" onclick="openModal('AUTH')">
+                  <img src="../assets/icon/user.svg">
+               </button>`;
+
+    document.getElementById("auth").innerHTML = template || "";
   });
 };

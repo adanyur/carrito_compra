@@ -77,8 +77,7 @@ class DBController
         
         $sql_statement = $this->conn->prepare($query);
         $sql_statement->execute();
-        $id = mysqli_insert_id ( $this->conn );
-        return $id;
+        return mysqli_insert_id ( $this->conn );
     }
 
     function updateDB($query, $params = array())
