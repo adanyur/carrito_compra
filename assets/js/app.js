@@ -61,10 +61,9 @@ const AddCart = (id) => {
   let cantidad = document.getElementById("quantity" + id).value;
   let idproducto = document.getElementById("idproduct" + id).value;
   let usuario = document.getElementById("usuario" + id).value;
-  // document.getElementById(`product${id}`).disabled = true;
-  // document.getElementById(`product${id}`).style.background = "red";
 
   let data = { idproducto, cantidad, usuario };
+
   $.post("../pages/cart-list.php", data, (data) => {
     countCarrito();
   });
@@ -303,7 +302,7 @@ const SearchCategoryProduct = (id) => {
     `;
     });
     template += `</div>`;
-    document.getElementById("listAll").style.display = "none";
+    document.getElementById("listAll").remove();
     document.getElementById("searchCategoryProduct").innerHTML = template;
   });
 };

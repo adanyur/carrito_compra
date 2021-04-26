@@ -66,7 +66,7 @@ class Carrito extends DBController
                     b.image,
                     b.price,
                     a.quantity,
-                    (b.price * a.quantity) as total
+                    round(b.price * a.quantity,2) as total
                     from tbl_cart a
                     join tbl_product b on (a.product_id=b.id) 
                     WHERE member_id=?";
