@@ -25,7 +25,7 @@ const register = () => {
   let firstname = document.getElementById("firstname").value;
   let lastname = document.getElementById("lastname").value;
   let email = document.getElementById("email").value;
-  let password = document.getElementById("passwor").value;
+  let passwor = document.getElementById("passwor").value;
   let comment = document.getElementById("comment").value;
   let zip = document.getElementById("zip").value;
   let town = document.getElementById("town").value;
@@ -35,7 +35,7 @@ const register = () => {
     firstname,
     lastname,
     email,
-    password,
+    passwor,
     comment,
     town,
     zip,
