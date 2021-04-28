@@ -12,13 +12,11 @@
         
   </ul> 
 </div>
-<div class="container-cart-count">
+<div class="container-cart-count animate__animated animate__fadeIn">
   <button type="button" class="btn btn-black"  onclick="openModal('CART')">
     <img src="../assets/icon/shopping-cart.svg" >   
     <span class="badge badge-light" id="countCarrito"></span>
   </button>
-  <button type="button" class="btn btn-black" onclick="openModal('AUTH')">
-      <img src="../assets/icon/user.svg">
-  </button>
+  <div id="auth"></div>
 </div>
 </nav>

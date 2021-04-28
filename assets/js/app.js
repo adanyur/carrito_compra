@@ -1,8 +1,7 @@
 $(document).ready(function () {
   listCategory();
   countCarrito();
-
-  //  ValidacionUsario();
+  ValidacionUsario();
 });
 
 /***************LOGIN****************/
@@ -10,9 +9,15 @@ $(document).ready(function () {
 const login = () => {
   let user = document.getElementById("user").value;
   let password = document.getElementById("password").value;
-
   $.post("../model/Login.php", { user, password }, (data) => {
-    console.log(data);
+    document.getElementById("modal-btn").checked = false;
+    ValidacionUsario();
+  });
+};
+
+const logout = () => {
+  $.get(`../model/logout.php`, (data) => {
+    ValidacionUsario();
   });
 };
 
@@ -80,6 +85,8 @@ const countCarrito = () => {
 
 /*********MODAL********/
 const openModal = (type) => {
+  document.getElementById("viewDetail").style.display = "none";
+  document.getElementById("templateDynamic").style.display = "block";
   document.getElementById("modal-btn").checked = true;
   switch (type) {
     case "CART": {
@@ -99,29 +106,33 @@ const openModal = (type) => {
 
 const viewDetail = (idproduct) => {
   let template = "";
+  document.getElementById("templateDynamic").style.display = "none";
+  document.getElementById("viewDetail").style.display = "block";
   document.getElementById("modal-btn").checked = true;
   $.get(`../model/productById-model.php?id=${idproduct}`, (data) => {
     let detail = JSON.parse(data);
     detail.forEach((detail) => {
       template += `
-        <div class="container-view-detail">
-              <div class="header-view-detail">
-                  <span class="view-detail-title">${detail.name}</span>
-              </div>
-              <div class="body-view-detail">
-                    <div class="body-view-detail-img">
-                      <img src="${detail.image}" class="view-detail-img">
-                    </div>
-                    <div class="body-view-detail-detail">
-                      <span class="detail-title">Description</span>
-                      <span class="detail-text">${detail.detail1}</span>
-                    </div>
-              </div>
-              <div class="footer-view-detail"></div>
-        </div>     
+  
+          <div class="container-view-detail">
+                <div class="header-view-detail">
+                    <span class="view-detail-title">${detail.name}</span>
+                </div>
+                <div class="body-view-detail">
+                      <div class="body-view-detail-img">
+                        <img src="${detail.image}" class="view-detail-img">
+                      </div>
+                      <div class="body-view-detail-detail">
+                        <span class="detail-title">Description</span>
+                        <span class="detail-text">${detail.detail1}</span>
+                      </div>
+                </div>
+                <div class="footer-view-detail"></div>
+          </div>
+   
       `;
 
-      document.getElementById("templateDynamic").innerHTML = template;
+      document.getElementById("viewDetail").innerHTML = template;
     });
   });
 };
@@ -307,13 +318,38 @@ const SearchCategoryProduct = (id) => {
   });
 };
 
+const perfil = (data) => {
+  return `
+  <div class="dropdown animate__animated animate__fadeIn">
+  <span><img src="../assets/icon/user.svg"></span>
+  <div class="dropdown-content">
+    <div class="dropdown-content-item">
+      ${data}
+    </div>
+    <div class="dropdown-content-item">
+      perfil
+    </div>
+    <div class="dropdown-content-item" onclick="logout()">
+      <img src="../assets/icon/logout.svg">
+      cerrra session
+    </div>
+  </div>
+  </div>
+`;
+};
+
+const buttonLogin = () => {
+  return `
+    <button type="button" class="btn btn-black animate__animated animate__fadeIn" onclick="openModal('AUTH')">
+        <img src="../assets/icon/login.svg">
+    </button>    
+    `;
+};
+
 const ValidacionUsario = () => {
   let template = "";
   $.get(`../model/cookies.php`, (data) => {
-    template = `<button type="button" class="btn btn-black" onclick="openModal('AUTH')">
-                  <img src="../assets/icon/user.svg">
-               </button>`;
-
-    document.getElementById("auth").innerHTML = template || "";
+    template = !data ? buttonLogin() : perfil(data);
+    document.getElementById("auth").innerHTML = template;
   });
 };
