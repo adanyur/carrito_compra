@@ -34,7 +34,7 @@
 
 .card-shadow {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  border-radius: 1.5rem;
+  border-radius: 2rem;
   border: 0;
 }
 
@@ -282,6 +282,14 @@
   padding: 0;
 }
 
+.container-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 120px;
+}
+
 .container-order-detall {
   display: flex;
   flex-direction: column;
@@ -337,8 +345,15 @@
 .img-product {
   width: 100%;
   height: 120px;
-  border-top-left-radius: 1.5rem;
-  border-bottom-left-radius: 1.5rem;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
+.img-svg-forma-pago {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  color: red;
 }
 
 .img-svg {
@@ -599,6 +614,7 @@
   left: -150px;
   top: 40px;
   background-color: #f9f9f9;
+  height: 30px;
   height: auto;
   min-width: 200px;
   border-radius: 1.5rem;

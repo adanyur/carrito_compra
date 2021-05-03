@@ -8,9 +8,14 @@ const showAuthRegister = () => {
   document.getElementById("register").style.display = "block";
 };
 
+const showFormPago = () => {
+  document.getElementById("listadoDeCarrito").style.display = "none";
+  document.getElementById("formaDePago").style.display = "block";
+};
+
 const templateDynamic = () => {
   return `
-            <div class="container-form animate__animated animate__fadeIn" id="login" style="display:block">
+        <div class="container-form animate__animated animate__fadeIn" id="login" style="display:block">
             <form autocomplete="off">
                 <h1 class="form-title">Login in</h1>
                 <div class="group-form">
@@ -66,5 +71,6 @@ const templateDynamic = () => {
         <button type="button" onclick="register()" class="btn-login">Sign un</button>
     </div>
   </form>
-  </div> `;
+  </div> 
+  `;
 };

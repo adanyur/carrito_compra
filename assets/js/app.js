@@ -1,7 +1,10 @@
 $(document).ready(function () {
   listCategory();
+  buttonAuth();
   countCarrito();
-  ValidacionUsario();
+  session()
+    ? localStorage.setItem("session", true)
+    : localStorage.setItem("session", false);
 });
 
 /***************LOGIN****************/
@@ -9,16 +12,26 @@ $(document).ready(function () {
 const login = () => {
   let user = document.getElementById("user").value;
   let password = document.getElementById("password").value;
-  $.post("../model/Login.php", { user, password }, (data) => {
+  $.post("../model/Login.php", { user, password }, (value) => {
+    const data = JSON.parse(value);
+    localStorage.setItem("session", data.status);
+    localStorage.setItem("user", value);
+    countCarrito();
+    buttonAuth();
     document.getElementById("modal-btn").checked = false;
-    ValidacionUsario();
   });
 };
 
+const id = () => (session() ? dataUser().id : null);
+const user = () => (session() ? dataUser().email : null);
+const dataUser = () => JSON.parse(localStorage.getItem("user"));
+const session = () => JSON.parse(localStorage.getItem("session"));
+
 const logout = () => {
-  $.get(`../model/logout.php`, (data) => {
-    ValidacionUsario();
-  });
+  localStorage.clear();
+  localStorage.setItem("session", false);
+  buttonAuth();
+  document.getElementById("countCarrito").innerHTML = 0;
 };
 
 const register = () => {
@@ -54,28 +67,25 @@ const register = () => {
     document.getElementById("message-auth").innerHTML = template;
     setTimeout(() => {
       document.getElementById("message-auth").style.display = "none";
-
       document.getElementById("login").style.display = "block";
-    }, 3000);
+    }, 2000);
   });
 };
 
 /************************CARRITTO*************************/
 
-const AddCart = (id) => {
-  let cantidad = document.getElementById("quantity" + id).value;
-  let idproducto = document.getElementById("idproduct" + id).value;
-  let usuario = document.getElementById("usuario" + id).value;
-
+const AddCart = (idProduct) => {
+  let cantidad = document.getElementById("quantity" + idProduct).value;
+  let idproducto = document.getElementById("idproduct" + idProduct).value;
+  let usuario = id();
   let data = { idproducto, cantidad, usuario };
-
   $.post("../pages/cart-list.php", data, (data) => {
     countCarrito();
   });
 };
 
 const countCarrito = () => {
-  $.get("../model/countCarrito.php", (data) => {
+  $.get(`../model/countCarrito.php?id=${id()}`, (data) => {
     let count = JSON.parse(data);
     count.forEach((count) => {
       document.getElementById("countCarrito").innerHTML = count.count || 0;
@@ -102,6 +112,104 @@ const openModal = (type) => {
       break;
     }
   }
+};
+
+const cartProductLisModal = () => {
+  $.get(`../model/productListById-model.php?id=${id()}`, (value) => {
+    let data = JSON.parse(value);
+    let template = "";
+
+    if (value === "null") {
+      template += `<h4 class="text-center">No tiene nada el carrito</h4>`;
+      document.getElementById("templateDynamic").innerHTML = template;
+      return;
+    }
+
+    template += `<div class="modal-head">
+                  <h1 class="modal-title">Carrito</h1>
+                </div>  
+                <div class="modal-body">`;
+
+    template += `<div id="listadoDeCarrito">
+                  ${detalleDelCarrito(data)}
+                </div>
+                `;
+    template += `<div id="formaDePago" style="display:none;width:100%">
+                    ${formaDePago()}
+                </div>
+                `;
+
+    template += `</div>
+                  <div class="modal-footer">
+                    <button class="btn-add" onclick="showFormPago()">
+                    <span id="subtotal" class="info-payment"></span>|
+                      <span class="info-payment">
+                        <img src="../assets/icon/hand.svg">
+                      </span>
+                    </button>
+                  </div>
+                `;
+
+    document.getElementById("templateDynamic").innerHTML = template;
+    calculoCart();
+  });
+};
+
+const detalleDelCarrito = (value) => {
+  return value.map((data) => {
+    return `<div class="card mb-2 card-shadow card-shadow-2">
+          <div class="card-body card-padding">
+            <div class="container-order">
+                <div class="container-img">
+                    <img src="${data.image}" class="img-product">
+                </div>
+                <div class="container-order-detall">
+                <div class="detalle-head">
+                  <span class="info-detalle">${data.name}</span>
+                  <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
+                </div>
+                <div class="detalle-body">
+                  <div class="detalle-item">
+                    <span class="head-info">Cantidad</span>
+                    <span class="body-info">${data.quantity}</span>
+                  </div>
+                  <div class="detalle-item border-separador">
+                  <span class="head-info">Precio</span>
+                    <span class="body-info">${data.price}</span>
+                  </div>
+                  <div class="detalle-item">
+                  <span class="head-info">Total</span>
+                    <span class="body-info">${data.total}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      `;
+  });
+};
+
+const formaDePago = () => {
+  const json = [
+    { icon: "../assets/icon/paypal.svg", forma: "Paypal" },
+    { icon: "../assets/icon/store.svg", forma: "Tienda" },
+  ];
+
+  return json.map((value) => {
+    return `<div class="card mb-2 card-shadow card-shadow-2 w-100">
+              <div class="card-body card-padding">
+                <div class="container-order">
+                  <div class="container-icon">
+                    <img src="${value.icon}" class="img-svg-forma-pago">
+                  </div>
+                  <div class="container-order-detall">
+                      <h1>${value.forma}</h1>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+  });
 };
 
 const viewDetail = (idproduct) => {
@@ -173,75 +281,8 @@ const email = () => {
   document.getElementById("templateDynamic").innerHTML = template;
 };
 
-const cartProductLisModal = () => {
-  $.get("../model/productListById-model.php", (value) => {
-    let data = JSON.parse(value);
-    let template = "";
-
-    if (value === "null") {
-      template += `<h4 class="text-center">No tiene nada el carrito</h4>`;
-      document.getElementById("templateDynamic").innerHTML = template;
-      return;
-    }
-
-    template += `
-    <div class="modal-head">
-        <h1 class="modal-title">Carrito</h1>
-    </div>
-    <div class="modal-body">
-    `;
-
-    data.forEach((data) => {
-      template += `<div class="card mb-2 card-shadow card-shadow-2" >
-            <div class="card-body card-padding">
-              <div class="container-order">
-                  <div class="container-img">
-                      <img src="${data.image}" class="img-product">
-                  </div>
-                  <div class="container-order-detall">
-                  <div class="detalle-head">
-                    <span class="info-detalle">${data.name}</span>
-                    <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
-                  </div>
-                  <div class="detalle-body">
-                    <div class="detalle-item">
-                      <span class="head-info">Cantidad</span>
-                      <span class="body-info">${data.quantity}</span>
-                    </div>
-                    <div class="detalle-item border-separador">
-                    <span class="head-info">Precio</span>
-                      <span class="body-info">${data.price}</span>
-                    </div>
-                    <div class="detalle-item">
-                    <span class="head-info">Total</span>
-                      <span class="body-info">${data.total}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-        `;
-    });
-
-    template += `</div>
-                  <div class="modal-footer">
-                    <button class="btn-add">
-                    <span id="subtotal" class="info-payment" ></span>|
-                    <span class="info-payment">
-                      <img src="../assets/icon/hand.svg">
-                    </span>
-                    </button>
-                  </div>
-                `;
-
-    document.getElementById("templateDynamic").innerHTML = template;
-    calculoCart();
-  });
-};
-
 const calculoCart = () => {
-  $.post("../model/calculo.php", (data) => {
+  $.post(`../model/calculo.php?id=${id()}`, (data) => {
     let value = JSON.parse(data);
     value.map((data) => {
       document.getElementById("subtotal").innerHTML = `$${
@@ -313,24 +354,24 @@ const SearchCategoryProduct = (id) => {
     `;
     });
     template += `</div>`;
-    document.getElementById("listAll").remove();
+    document.getElementById("listAll").style.display = "none";
     document.getElementById("searchCategoryProduct").innerHTML = template;
   });
 };
 
-const perfil = (data) => {
+const perfil = () => {
   return `
   <div class="dropdown animate__animated animate__fadeIn">
   <span><img src="../assets/icon/user.svg"></span>
   <div class="dropdown-content">
     <div class="dropdown-content-item">
-      ${data}
+      ${user()}
     </div>
     <div class="dropdown-content-item">
       perfil
     </div>
-    <div class="dropdown-content-item" onclick="logout()">
-      <img src="../assets/icon/logout.svg">
+    <div class="dropdown-content-item animate__animated animate__fadeIn" onclick="logout()">
+      <img src="../assets/icon/logout.svg" class="animate__animated animate__fadeIn">
       cerrra session
     </div>
   </div>
@@ -346,10 +387,20 @@ const buttonLogin = () => {
     `;
 };
 
-const ValidacionUsario = () => {
-  let template = "";
-  $.get(`../model/cookies.php`, (data) => {
-    template = !data ? buttonLogin() : perfil(data);
-    document.getElementById("auth").innerHTML = template;
-  });
+const buttoAddCart = (auth) => {
+  const data = JSON.parse(auth);
+  let buttonAddCart = !auth
+    ? ``
+    : `onclick="AddCart(<?=$product_array[$key]['id'];?>)"`;
+  template = `
+  <button  type="button" id="product<?=$product_array[$key]['id'];?>" ${buttonAddCart} class="btn-add button-add-product">
+      <img src="../assets/icon/add-to-cart.svg" class="img-icon">
+  </button>
+  `;
+  document.getElementById(`buttonAddCart${data.id}`).innerHTML = template;
+};
+
+const buttonAuth = () => {
+  template = session() ? perfil() : buttonLogin();
+  document.getElementById("auth").innerHTML = template;
 };
