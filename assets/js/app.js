@@ -85,12 +85,15 @@ const AddCart = (idProduct) => {
 };
 
 const countCarrito = () => {
-  $.get(`../model/countCarrito.php?id=${id()}`, (data) => {
-    let count = JSON.parse(data);
-    count.forEach((count) => {
-      document.getElementById("countCarrito").innerHTML = count.count || 0;
+  if (id()) {
+    $.get(`../model/countCarrito.php?id=${id()}`, (data) => {
+      let count = JSON.parse(data);
+      count.forEach((count) => {
+        document.getElementById("countCarrito").innerHTML = count.count || 0;
+      });
     });
-  });
+  }
+  document.getElementById("countCarrito").innerHTML = 0;
 };
 
 /*********MODAL********/
@@ -120,7 +123,12 @@ const cartProductLisModal = () => {
     let template = "";
 
     if (value === "null") {
-      template += `<h4 class="text-center">No tiene nada el carrito</h4>`;
+      template += `
+          <div class="modal-body">
+              ${id() ? emptyCart() : messageAuth()}
+          </div>
+         
+          `;
       document.getElementById("templateDynamic").innerHTML = template;
       return;
     }
@@ -138,6 +146,10 @@ const cartProductLisModal = () => {
                     ${formaDePago()}
                 </div>
                 `;
+    template += `<div id="messageConfirmation" style="display:none;width:100%">
+                  ${formaDePago()}
+                </div>
+                `;
 
     template += `</div>
                   <div class="modal-footer">
@@ -153,6 +165,22 @@ const cartProductLisModal = () => {
     document.getElementById("templateDynamic").innerHTML = template;
     calculoCart();
   });
+};
+
+const emptyCart = () => {
+  return `
+    <div class="container-message">
+    </div>
+    `;
+};
+
+const messageAuth = () => {
+  return `
+    <div class="container-message">
+        <h1>Debe iniciar session</h1>
+     
+    </div>
+  `;
 };
 
 const detalleDelCarrito = (value) => {
@@ -197,7 +225,7 @@ const formaDePago = () => {
   ];
 
   return json.map((value) => {
-    return `<div class="card mb-2 card-shadow card-shadow-2 w-100">
+    return `<div class="card mb-2 card-shadow card-shadow-2 w-100" onclick="setForma('${value.forma}')">
               <div class="card-body card-padding">
                 <div class="container-order">
                   <div class="container-icon">
@@ -210,6 +238,12 @@ const formaDePago = () => {
               </div>
             </div>`;
   });
+};
+
+const setForma = (pago) => {
+  let idusuario = id();
+  const data = { idusuario, pago };
+  $.post(`../model/order.php`, data, (data) => {});
 };
 
 const viewDetail = (idproduct) => {

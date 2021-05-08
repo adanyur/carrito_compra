@@ -66,6 +66,7 @@ class Carrito extends DBController
                     b.image,
                     b.price,
                     a.quantity,
+                    a.product_id,
                     round(b.price * a.quantity,2) as total
                     from tbl_cart a
                     join tbl_product b on (a.product_id=b.id) 
@@ -89,6 +90,20 @@ class Carrito extends DBController
             )
         );
         return $this->deleteDB($query, $params);
+    }
+
+    function deleteCartByUser($id){
+
+        $query ="DELETE FROM tbl_cart WHERE member_id=?";
+
+        $params = array(
+            array(
+                "param_type" => "s",
+                "param_value" => $id
+            )
+        );
+        return $this->deleteDB($query, $params);
+
     }
 
 
