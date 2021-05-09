@@ -1,11 +1,11 @@
 <?php
-session_start();
 define('RUTA_CLASS', dirname(dirname(__FILE__))); 
 require_once  RUTA_CLASS.'/include/head.php';
 require_once  RUTA_CLASS.'/include/nav.php';
 require_once RUTA_CLASS."/class/Producto-class.php";
 ?>
 <div class="container-imgen" id="listCategory"></div>
+<div id="searchCategoryProduct"></div>
 <div id="listAll">
 <div class="container-content">
 <?php 
@@ -25,17 +25,15 @@ foreach ($product_array as $key => $value) {
                $<?=$product_array[$key]["price"];?>
             </div>
             <div class="info-quanty">
-               <input type="number" id="quantity<?=$product_array[$key]["id"];?>" name="quantity"  value=1 class="input-control">
+               <input type="number" id="quantity<?=$product_array[$key]["id"];?>" name="quantity"  value=1 class="input-control quantity<?=$product_array[$key]["id"];?>">
             </div>
       </div>
 	   <input type="hidden" id="idproduct<?=$product_array[$key]["id"];?>" name="id" value="<?=$product_array[$key]["id"];?>">	   
       </div>
       <div class="container-button">
-
             <button  type="button" id="product<?=$product_array[$key]['id'];?>" onclick="AddCart(<?=$product_array[$key]['id'];?>)" class="btn-add button-add-product">
                <img src="../assets/icon/add-to-cart.svg" class="img-icon">
             </button>
-
             <button  type="button" id="product<?=$product_array[$key]['id'];?>" onclick="viewDetail(<?=$product_array[$key]['id'];?>)" class="btn-add btn-secondary-product">
                <img src="../assets/icon/loupe.svg" class="img-icon">
             </button>
@@ -45,6 +43,6 @@ foreach ($product_array as $key => $value) {
 <?php } ?>
 </div>
 </div>
-<div id="searchCategoryProduct"></div>
+
 <?php require_once  RUTA_CLASS.'/include/modal.php'?>
 <?php require_once  RUTA_CLASS.'/include/footer.php'?>

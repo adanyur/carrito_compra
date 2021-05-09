@@ -9,8 +9,8 @@ const showAuthRegister = () => {
 };
 
 const showFormPago = () => {
+  document.getElementById("title-modal").innerText = "Forma de Pago";
   document.querySelector(".modal-body").style.overflowY = "hidden";
-
   document.getElementById("listadoDeCarrito").style.display = "none";
   document.getElementById("modal-footer").style.display = "none";
   document.getElementById("formaDePago").style.display = "block";

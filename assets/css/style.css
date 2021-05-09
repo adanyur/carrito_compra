@@ -235,10 +235,13 @@
 }
 
 .modal-wrap .modal-head {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100px;
-  background-color: #edcb87;
+  background-color: #343a40;
+  color: #fff;
 }
 
 .modal-close {
@@ -301,6 +304,7 @@
   justify-items: center;
   align-items: center;
   margin: 1rem 0;
+  padding: 2rem 0;
 }
 
 .container-message .container-icon-message {
@@ -309,7 +313,7 @@
 }
 
 .img-svg-message {
-  width: 150px;
+  width: 100px;
   height: auto;
 }
 
@@ -317,6 +321,9 @@
   width: 100%;
   text-align: center;
   margin-top: 1rem;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 1rem 0;
 }
 
 .container-order-detall {

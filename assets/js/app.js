@@ -75,6 +75,13 @@ const register = () => {
 /************************CARRITTO*************************/
 
 const AddCart = (idProduct) => {
+  document.getElementById("viewDetail").style.display = "none";
+  document.getElementById("templateDynamic").style.display = "block";
+  if (!id()) {
+    messageAuth();
+    return;
+  }
+
   let cantidad = document.getElementById("quantity" + idProduct).value;
   let idproducto = document.getElementById("idproduct" + idProduct).value;
   let usuario = id();
@@ -82,6 +89,19 @@ const AddCart = (idProduct) => {
   $.post("../pages/cart-list.php", data, (data) => {
     countCarrito();
   });
+};
+
+const cantidadValidacion = (idProduct) => {
+  let cantidad = document.getElementById("quantity" + idProduct).value;
+  let cantidadFiltro = document.getElementById("q" + idProduct).value || 1;
+  console.log("cantida");
+  return cantidad === cantidadFiltro
+    ? cantidad
+    : cantidad > cantidadFiltro
+    ? cantidad
+    : cantidad < cantidadFiltro
+    ? cantidadFiltro
+    : cantidad;
 };
 
 const countCarrito = () => {
@@ -100,6 +120,7 @@ const countCarrito = () => {
 const openModal = (type) => {
   document.getElementById("viewDetail").style.display = "none";
   document.getElementById("templateDynamic").style.display = "block";
+
   document.getElementById("modal-btn").checked = true;
   switch (type) {
     case "CART": {
@@ -118,25 +139,21 @@ const openModal = (type) => {
 };
 
 const cartProductLisModal = () => {
+  if (!id()) {
+    messageAuth();
+    return;
+  }
   $.get(`../model/productListById-model.php?id=${id()}`, (value) => {
     let data = JSON.parse(value);
     let template = "";
-
     if (value === "null") {
-      template += `
-          <div class="modal-body">
-              ${id() ? emptyCart() : messageAuth()}
-          </div>
-          `;
-      document.getElementById("templateDynamic").innerHTML = template;
+      emptyCart();
       return;
     }
-
     template += `<div class="modal-head" id="modal-head">
-                  <h1 class="modal-title">Carrito</h1>
+                  <h1 class="modal-title text-center" id="title-modal">Carrito</h1>
                 </div>  
                 <div class="modal-body" id="modal-body">`;
-
     template += `<div id="listadoDeCarrito">
                   ${detalleDelCarrito(data)}
                 </div>
@@ -167,19 +184,26 @@ const cartProductLisModal = () => {
 };
 
 const emptyCart = () => {
-  return `
-    <div class="container-message">
+  document.getElementById("modal-btn").checked = true;
+  let template = `
+    <div class="modal-body">
+      <div class="container-message">
+      </div>
     </div>
     `;
+  document.getElementById("templateDynamic").innerHTML = template;
 };
 
 const messageAuth = () => {
-  return `
+  document.getElementById("modal-btn").checked = true;
+  let template = `
+  <div class="modal-body">
     <div class="container-message">
         <h1>Debe iniciar session</h1>
-
     </div>
+  </div>
   `;
+  document.getElementById("templateDynamic").innerHTML = template;
 };
 
 const detalleDelCarrito = (value) => {
@@ -222,7 +246,6 @@ const formaDePago = () => {
     { icon: "../assets/icon/paypal.svg", forma: "Paypal" },
     { icon: "../assets/icon/store.svg", forma: "Tienda" },
   ];
-
   return json.map((value) => {
     return `<div class="card mb-2 card-shadow card-shadow-2 w-100" onclick="setForma('${value.forma}')">
               <div class="card-body card-padding">
@@ -240,16 +263,18 @@ const formaDePago = () => {
 };
 
 const messageConfirmation = () => {
-  const { nombre } = dataUser();
-  return `<div class="container-message">
-            <div class="container-icon-message">
-              <img src="../assets/icon/check.svg" class="img-svg-message">
+  if (id()) {
+    const { nombre } = dataUser();
+    return `<div class="container-message">
+              <div class="container-icon-message">
+                <img src="../assets/icon/check.svg" class="img-svg-message">
+              </div>
+              <div class="container-text-message">
+                  ${nombre}, se genero su orden!!
+              </div>
             </div>
-            <div class="container-text-message">
-                ${nombre}, se genero su orden!!
-            </div>
-          </div>
-        `;
+          `;
+  }
 };
 
 const setForma = (pago) => {
@@ -364,8 +389,8 @@ const listCategory = () => {
   });
 };
 
-const SearchCategoryProduct = (id) => {
-  $.get(`../model/categoryListByid-model.php?id=${id}`, (data) => {
+const SearchCategoryProduct = (idcart) => {
+  $.get(`../model/categoryListByid-model.php?id=${idcart}`, (data) => {
     let template = "";
     let categoryId = JSON.parse(data);
     template += `<div class="container-content animate__animated animate__fadeIn">`;
@@ -387,7 +412,6 @@ const SearchCategoryProduct = (id) => {
                 </div>
           </div>
          <input type="hidden" id="idproduct${data.id}" name="id" value="${data.id}">
-         <input type="hidden" id="usuario${data.id}" name="usuario" value=10000>
           </div>
           <div class="container-button">
             <button  type="button" id="product${data.id}" onclick="AddCart(${data.id})" class="btn-add button-add-product">
