@@ -127,16 +127,15 @@ const cartProductLisModal = () => {
           <div class="modal-body">
               ${id() ? emptyCart() : messageAuth()}
           </div>
-         
           `;
       document.getElementById("templateDynamic").innerHTML = template;
       return;
     }
 
-    template += `<div class="modal-head">
+    template += `<div class="modal-head" id="modal-head">
                   <h1 class="modal-title">Carrito</h1>
                 </div>  
-                <div class="modal-body">`;
+                <div class="modal-body" id="modal-body">`;
 
     template += `<div id="listadoDeCarrito">
                   ${detalleDelCarrito(data)}
@@ -147,12 +146,12 @@ const cartProductLisModal = () => {
                 </div>
                 `;
     template += `<div id="messageConfirmation" style="display:none;width:100%">
-                  ${formaDePago()}
+                  ${messageConfirmation()}
                 </div>
                 `;
 
     template += `</div>
-                  <div class="modal-footer">
+                  <div class="modal-footer" id="modal-footer">
                     <button class="btn-add" onclick="showFormPago()">
                     <span id="subtotal" class="info-payment"></span>|
                       <span class="info-payment">
@@ -178,7 +177,7 @@ const messageAuth = () => {
   return `
     <div class="container-message">
         <h1>Debe iniciar session</h1>
-     
+
     </div>
   `;
 };
@@ -240,10 +239,26 @@ const formaDePago = () => {
   });
 };
 
+const messageConfirmation = () => {
+  const { nombre } = dataUser();
+  return `<div class="container-message">
+            <div class="container-icon-message">
+              <img src="../assets/icon/check.svg" class="img-svg-message">
+            </div>
+            <div class="container-text-message">
+                ${nombre}, se genero su orden!!
+            </div>
+          </div>
+        `;
+};
+
 const setForma = (pago) => {
   let idusuario = id();
   const data = { idusuario, pago };
-  $.post(`../model/order.php`, data, (data) => {});
+  showConfirmation();
+  // $.post(`../model/order.php`, data, (data) => {
+
+  // });
 };
 
 const viewDetail = (idproduct) => {
@@ -271,7 +286,6 @@ const viewDetail = (idproduct) => {
                 </div>
                 <div class="footer-view-detail"></div>
           </div>
-   
       `;
 
       document.getElementById("viewDetail").innerHTML = template;

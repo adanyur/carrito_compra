@@ -16,6 +16,6 @@ foreach ($data as $key=>$valor){
     $order->orderRegistrarItem($idorder,$valor['product_id'],$valor['price'],$valor['quantity']);
 }
 
-$cart->deleteCartByUser($id);
+//$cart->deleteCartByUser($id);
 
 ?>

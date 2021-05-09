@@ -9,8 +9,18 @@ const showAuthRegister = () => {
 };
 
 const showFormPago = () => {
+  document.querySelector(".modal-body").style.overflowY = "hidden";
+
   document.getElementById("listadoDeCarrito").style.display = "none";
+  document.getElementById("modal-footer").style.display = "none";
   document.getElementById("formaDePago").style.display = "block";
+};
+
+const showConfirmation = () => {
+  document.getElementById("formaDePago").style.display = "none";
+  document.getElementById("modal-footer").style.display = "none";
+  document.getElementById("modal-head").style.display = "none";
+  document.getElementById("messageConfirmation").style.display = "block";
 };
 
 const templateDynamic = () => {

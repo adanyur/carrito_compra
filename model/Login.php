@@ -9,7 +9,12 @@ $password = isset($_POST['password']) ? $_POST['password'] : '';
 $data = $_user->Login($user,$password);
 
 if(isset($data)){
-    die(json_encode(array('status'=>true,'message'=>'Ingreso correctamente','id'=>$data[0]['id'],'email'=>$data[0]['email'])));
+    die(json_encode(array('status'=>true,
+                    'message'=>'Ingreso correctamente',
+                    'id'=>$data[0]['id'],
+                    'email'=>$data[0]['email'],
+                    'nombre'=>$data[0]['firstname']
+                    )));
 }else{
     die(json_encode(array('status'=>false , 'message'=>'Usted no tiene acceso!')));
 }

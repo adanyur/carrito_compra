@@ -7,7 +7,7 @@ class User extends DBController
 
     function Login($email,$password){
 
-        $query = "SELECT id,email FROM tbluser WHERE email=? AND password=?";
+        $query = "SELECT id,email,firstname FROM tbluser WHERE email=? AND password=?";
 
         $params = array(
             array(
