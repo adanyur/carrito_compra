@@ -84,10 +84,10 @@ const templateSlider = () => {
 
       <ul class="list-unstyled CTAs">
           <li>
-              <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Cerrar Sesion</a>
+              <a href="#" class="download">Cerrar Sesion</a>
           </li>
           <li>
-              <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Open</a>
+              <a href="%" class="article">Open</a>
           </li>
       </ul>
   </nav>
@@ -103,11 +103,11 @@ const templateSlider = () => {
         </button> 
     </div>
 </nav>
-      <div class="container p-4">
-        <h2>Collapsible Sidebar Using Bootstrap 4</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
+      
+      <div class="template">
+        ${templateProduct()}
+      </div>        
+      
   </div>
 </div>
   `;
@@ -119,4 +119,111 @@ const templateHome = () => {
   $("#sidebarCollapse").on("click", () => {
     $("#sidebar").toggleClass("active");
   });
+};
+
+const templateProduct = () => {
+  return `
+
+          <div class="container-btn">
+            <button class="btn-button">+Agregar</button>
+          </div>
+  
+        <div class="container-responsive">
+          <div class="container-table">
+              <div class="container-row-header-desktop">
+                <div class="cell-item">codigo</div>
+                <div class="cell-item">nombre</div>
+                <div class="cell-item">edad</div>
+                <div class="cell-item">fecha</div>
+                <div class="cell-item">estado</div>
+              </div>  
+              <div class="container-row-header">
+                  <div class="cell-item">codigo</div>
+                  <div class="cell-item">nombre</div>
+                  <div class="cell-item">edad</div>
+                  <div class="cell-item">fecha</div>
+                  <div class="cell-item">estado</div>
+              </div>  
+              <div class="container-row-body">
+                <div class="cell-item">0001</div>
+                <div class="cell-item">yur adan valdez</div>
+                <div class="cell-item">15</div>
+                <div class="cell-item">19-05-2021</div>
+                <div class="cell-item">activo</div>
+              </div>
+          </div>
+
+        <div class="container-table">
+            <div class="container-row-header">
+                <div class="cell-item">codigo</div>
+                <div class="cell-item">nombre</div>
+                <div class="cell-item">edad</div>
+                <div class="cell-item">fecha</div>
+                <div class="cell-item">estado</div>
+            </div>  
+            <div class="container-row-body">
+              <div class="cell-item">0001</div>
+              <div class="cell-item">yur adan valdez</div>
+              <div class="cell-item">15</div>
+              <div class="cell-item">19-05-2021</div>
+              <div class="cell-item">activo</div>
+            </div>
+        </div>
+
+        <div class="container-table">
+            <div class="container-row-header">
+                <div class="cell-item">codigo</div>
+                <div class="cell-item">nombre</div>
+                <div class="cell-item">edad</div>
+                <div class="cell-item">fecha</div>
+                <div class="cell-item">estado</div>
+            </div>  
+            <div class="container-row-body">
+              <div class="cell-item">0001</div>
+              <div class="cell-item">yur adan valdez</div>
+              <div class="cell-item">15</div>
+              <div class="cell-item">19-05-2021</div>
+              <div class="cell-item">activo</div>
+            </div>
+        </div>
+
+        <div class="container-table">
+            <div class="container-row-header">
+                <div class="cell-item">codigo</div>
+                <div class="cell-item">nombre</div>
+                <div class="cell-item">edad</div>
+                <div class="cell-item">fecha</div>
+                <div class="cell-item">estado</div>
+            </div>  
+            <div class="container-row-body">
+              <div class="cell-item">0001</div>
+              <div class="cell-item">yur adan valdez</div>
+              <div class="cell-item">15</div>
+              <div class="cell-item">19-05-2021</div>
+              <div class="cell-item">activo</div>
+            </div>
+        </div>
+
+        <div class="container-table">
+            <div class="container-row-header">
+                <div class="cell-item">codigo</div>
+                <div class="cell-item">nombre</div>
+                <div class="cell-item">edad</div>
+                <div class="cell-item">fecha</div>
+                <div class="cell-item">estado</div>
+            </div>  
+            <div class="container-row-body">
+              <div class="cell-item">0001</div>
+              <div class="cell-item">yur adan valdez</div>
+              <div class="cell-item">15</div>
+              <div class="cell-item">19-05-2021</div>
+              <div class="cell-item">activo</div>
+            </div>
+        </div>
+        </div>
+        
+       
+        
+        
+        `;
 };

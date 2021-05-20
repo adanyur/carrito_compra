@@ -829,6 +829,12 @@ a.article:hover {
   display: block;
 }
 
+/*********************************************/
+/* .template {
+  padding: 0 1rem;
+} */
+
+/*********************************************/
 @media (min-width: 768px) and (min-width: 992px) {
   .container-content {
     display: flex;

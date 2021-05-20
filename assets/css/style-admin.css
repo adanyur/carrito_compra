@@ -1,0 +1,126 @@
+.template {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-table {
+  display: flex;
+  justify-content: center;
+  border-radius: 2rem;
+  margin: 0 1rem 1rem 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 25%);
+}
+
+.container-responsive {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-row-header-desktop {
+  display: none;
+}
+
+.container-row-header,
+.container-row-body {
+  width: 100%;
+}
+
+.cell-item {
+  width: 100%;
+  border: 1px solid #dadce0;
+}
+
+.container-row-header .cell-item,
+.container-row-header-desktop {
+  font-weight: 600;
+  text-align: center;
+}
+
+.container-row-header .cell-item:last-child {
+  border-bottom-left-radius: 2rem;
+}
+.container-row-header .cell-item:first-child {
+  border-top-left-radius: 2rem;
+}
+
+.container-row-body .cell-item:first-child {
+  border-top-right-radius: 2rem;
+}
+
+.container-row-body .cell-item:last-child {
+  border-bottom-right-radius: 2rem;
+}
+
+.container-btn {
+  width: 100%;
+  padding: 1rem;
+}
+
+.btn-button {
+  padding: 18px 0;
+  width: 100%;
+  font-size: 18px;
+  border-radius: 2rem;
+  border: none;
+  margin-bottom: 10px;
+  background-color: #828282;
+  outline: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+@media (min-width: 768px) and (min-width: 992px) {
+  .template {
+    justify-content: center;
+  }
+
+  .container-responsive {
+    margin: 2rem;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 25%);
+    height: auto;
+    border-radius: 2rem;
+  }
+
+  .container-table {
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .container-row-header,
+  .container-row-body {
+    display: flex;
+  }
+
+  .container-row-header .cell-item:last-child {
+    border-bottom-left-radius: 0;
+  }
+  .container-row-header .cell-item:first-child {
+    border-top-left-radius: 0;
+  }
+
+  .container-row-body .cell-item:first-child {
+    border-top-right-radius: 0;
+  }
+
+  .container-row-body .cell-item:last-child {
+    border-bottom-right-radius: 0;
+  }
+
+  .container-row-header-desktop {
+    display: none;
+  }
+
+  .container-responsive .container-table .container-row-header:first-child {
+    display: none;
+  }
+
+  /* .container-responsive .container-table:not(:first-child) {
+    background-color: red;
+  } */
+}
