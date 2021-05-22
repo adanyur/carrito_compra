@@ -1,6 +1,32 @@
 <?php
-define('__RUTA__', dirname(dirname(__FILE__)));
-require_once __RUTA__."/model/ProductoModel.php";
-$producto = new Producto();
-return die(json_encode($producto->getProductAll()));
+define('__RUTA__model', dirname(dirname(__FILE__)));
+require_once __RUTA__model."/model/ProductoModel.php";
+
+
+class ProductoController extends ProductoModel{
+
+       
+
+     
+    function index(){
+        $producto = new ProductoModel();
+        return json_encode($producto->getProductAll());
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>

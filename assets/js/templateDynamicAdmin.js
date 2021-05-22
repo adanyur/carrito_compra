@@ -43,42 +43,25 @@ const templateSlider = () => {
       </div>
       <ul class="list-unstyled components">
           <p>Yur Adan</p>
-          <li >
-              <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-              <ul class="collapse list-unstyled" id="homeSubmenu">
-                  <li>
-                      <a href="#">Home 1</a>
-                  </li>
-                  <li>
-                      <a href="#">Home 2</a>
-                  </li>
-                  <li>
-                      <a href="#">Home 3</a>
-                  </li>
-              </ul>
+          <li>
+              <a href="#" onclick="templateProduct()">Producto</a>
           </li>
           <li>
-              <a href="#">About</a>
+              <a href="#" onclick="templateCategoria()">Categoria</a>
           </li>
           <li>
-              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Otros</a>
               <ul class="collapse list-unstyled" id="pageSubmenu">
                   <li>
-                      <a href="#">Page 1</a>
+                      <a href="#">Otros 1</a>
                   </li>
                   <li>
-                      <a href="#">Page 2</a>
+                      <a href="#">Otros 2</a>
                   </li>
                   <li>
-                      <a href="#">Page 3</a>
+                      <a href="#">Otros 3</a>
                   </li>
               </ul>
-          </li>
-          <li>
-              <a href="#">Portfolio</a>
-          </li>
-          <li>
-              <a href="#">Contact</a>
           </li>
       </ul>
 
@@ -104,10 +87,7 @@ const templateSlider = () => {
     </div>
 </nav>
       
-      <div class="template">
-        ${templateProduct()}
-      </div>        
-      
+      <div class="template" id="template"></div>        
   </div>
 </div>
   `;
@@ -121,109 +101,31 @@ const templateHome = () => {
   });
 };
 
+const ocultarMenusLateral = () => {
+  $("#sidebar").toggleClass("active");
+};
+
 const templateProduct = () => {
-  return `
-
-          <div class="container-btn">
-            <button class="btn-button">+Agregar</button>
-          </div>
-  
-        <div class="container-responsive">
-          <div class="container-table">
-              <div class="container-row-header-desktop">
-                <div class="cell-item">codigo</div>
-                <div class="cell-item">nombre</div>
-                <div class="cell-item">edad</div>
-                <div class="cell-item">fecha</div>
-                <div class="cell-item">estado</div>
-              </div>  
-              <div class="container-row-header">
-                  <div class="cell-item">codigo</div>
-                  <div class="cell-item">nombre</div>
-                  <div class="cell-item">edad</div>
-                  <div class="cell-item">fecha</div>
-                  <div class="cell-item">estado</div>
-              </div>  
-              <div class="container-row-body">
-                <div class="cell-item">0001</div>
-                <div class="cell-item">yur adan valdez</div>
-                <div class="cell-item">15</div>
-                <div class="cell-item">19-05-2021</div>
-                <div class="cell-item">activo</div>
-              </div>
-          </div>
-
-        <div class="container-table">
-            <div class="container-row-header">
-                <div class="cell-item">codigo</div>
-                <div class="cell-item">nombre</div>
-                <div class="cell-item">edad</div>
-                <div class="cell-item">fecha</div>
-                <div class="cell-item">estado</div>
-            </div>  
-            <div class="container-row-body">
-              <div class="cell-item">0001</div>
-              <div class="cell-item">yur adan valdez</div>
-              <div class="cell-item">15</div>
-              <div class="cell-item">19-05-2021</div>
-              <div class="cell-item">activo</div>
-            </div>
+  ocultarMenusLateral();
+  const template = `
+        <div class="container-btn">
+          <button class="btn-button">+Agregar</button>
         </div>
+        <div class="container-responsive" id="listProduct"></div>        
+    `;
+  document.getElementById("template").innerHTML = template;
+  getProductAll();
+};
 
-        <div class="container-table">
-            <div class="container-row-header">
-                <div class="cell-item">codigo</div>
-                <div class="cell-item">nombre</div>
-                <div class="cell-item">edad</div>
-                <div class="cell-item">fecha</div>
-                <div class="cell-item">estado</div>
-            </div>  
-            <div class="container-row-body">
-              <div class="cell-item">0001</div>
-              <div class="cell-item">yur adan valdez</div>
-              <div class="cell-item">15</div>
-              <div class="cell-item">19-05-2021</div>
-              <div class="cell-item">activo</div>
-            </div>
+const templateCategoria = () => {
+  ocultarMenusLateral();
+  const template = `
+        <div class="container-btn">
+          <button class="btn-button">+Agregar</button>
         </div>
-
-        <div class="container-table">
-            <div class="container-row-header">
-                <div class="cell-item">codigo</div>
-                <div class="cell-item">nombre</div>
-                <div class="cell-item">edad</div>
-                <div class="cell-item">fecha</div>
-                <div class="cell-item">estado</div>
-            </div>  
-            <div class="container-row-body">
-              <div class="cell-item">0001</div>
-              <div class="cell-item">yur adan valdez</div>
-              <div class="cell-item">15</div>
-              <div class="cell-item">19-05-2021</div>
-              <div class="cell-item">activo</div>
-            </div>
-        </div>
-
-        <div class="container-table">
-            <div class="container-row-header">
-                <div class="cell-item">codigo</div>
-                <div class="cell-item">nombre</div>
-                <div class="cell-item">edad</div>
-                <div class="cell-item">fecha</div>
-                <div class="cell-item">estado</div>
-            </div>  
-            <div class="container-row-body">
-              <div class="cell-item">0001</div>
-              <div class="cell-item">yur adan valdez</div>
-              <div class="cell-item">15</div>
-              <div class="cell-item">19-05-2021</div>
-              <div class="cell-item">activo</div>
-            </div>
-        </div>
-        </div>
-        
-       
-        
-        
-        `;
+        <div class="container-responsive" id="listCategoria">
+        </div>        
+    `;
+  document.getElementById("template").innerHTML = template;
+  getCategoryAll();
 };
