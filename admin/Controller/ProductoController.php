@@ -3,9 +3,9 @@ define('__RUTA__model', dirname(dirname(__FILE__)));
 require_once __RUTA__model."/model/ProductoModel.php";
 
 
-class ProductoController extends ProductoModel{
 
-       
+
+class ProductoController extends ProductoModel{
 
      
     function index(){
@@ -14,6 +14,10 @@ class ProductoController extends ProductoModel{
     }
 
 
+    function store(){
+        $producto = new ProductoModel();
+        return json_encode($producto->getProductAll());    
+    }
 
 }
 

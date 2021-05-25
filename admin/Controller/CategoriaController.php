@@ -11,7 +11,10 @@ class CategoriaController extends CategoriaModel{
         return json_encode($categoria->getCategoriatAll());
     }
 
-
+    function store(){
+        $categoria = new CategoriaModel();
+        return json_encode($categoria->getCategoriatAll());    
+    }
 
 }
 

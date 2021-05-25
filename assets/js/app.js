@@ -120,7 +120,6 @@ const countCarrito = () => {
 const openModal = (type) => {
   document.getElementById("viewDetail").style.display = "none";
   document.getElementById("templateDynamic").style.display = "block";
-
   document.getElementById("modal-btn").checked = true;
   switch (type) {
     case "CART": {

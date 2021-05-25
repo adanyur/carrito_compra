@@ -101,15 +101,15 @@ const templateHome = () => {
   });
 };
 
-const ocultarMenusLateral = () => {
+const ocultarMenuLateral = () => {
   $("#sidebar").toggleClass("active");
 };
 
 const templateProduct = () => {
-  ocultarMenusLateral();
+  ocultarMenuLateral();
   const template = `
         <div class="container-btn">
-          <button class="btn-button">+Agregar</button>
+          <button type="button" class="btn-button" onclick="AgregarEditar()">+Agregar</button>
         </div>
         <div class="container-responsive" id="listProduct"></div>        
     `;
@@ -118,14 +118,84 @@ const templateProduct = () => {
 };
 
 const templateCategoria = () => {
-  ocultarMenusLateral();
+  ocultarMenuLateral();
   const template = `
         <div class="container-btn">
-          <button class="btn-button">+Agregar</button>
+          <button class="btn-button" onclick="AgregarEditar('categoria')">+Agregar</button>
         </div>
         <div class="container-responsive" id="listCategoria">
         </div>        
     `;
   document.getElementById("template").innerHTML = template;
   getCategoryAll();
+};
+
+const AgregarEditar = (key = "producto") => {
+  document.getElementById("viewDetail").style.display = "none";
+  document.getElementById("modal-btn").checked = true;
+
+  const TEMPLATE_DYNAMIC = {
+    producto: templateRegistrarProducto(),
+    categoria: templateRegistrarCategoria(),
+  };
+
+  let template = TEMPLATE_DYNAMIC[key] || templateRegistrarProducto();
+  document.getElementById("templateDynamic").innerHTML = template;
+};
+
+const templateRegistrarProducto = () => {
+  return `
+  <div class="container-form  container-form-register animate__animated animate__fadeIn">
+  <form autocomplete="off">
+      <h1 class="form-title">Registro de producto</h1>
+      <div class="group-form">
+          <input type="text" id="name" class="form-input" placeholder=" ">
+          <label class="label-control">Name</label>
+      </div>
+      <div class="group-form">
+          <input type="text" id="price" class="form-input" placeholder=" ">
+          <label class="label-control">Price</label>
+      </div>
+      <div class="group-form">
+          <input type="text" id="detalil1" class="form-input" placeholder=" ">
+          <label class="label-control">Detail 1</label>
+      </div>
+      <div class="group-form">
+          <input type="text" id="detalil2" class="form-input" placeholder=" ">
+          <label class="label-control">Detail 2</label>
+      </div>
+      <div class="group-form">
+          <input type="text" id="Image" class="form-input" placeholder=" ">
+          <label class="label-control">Image</label>
+      </div>
+      <div class="group-form">
+        <input type="file" id="file" name="file">
+      </div>
+      <div class="group-form">
+          <button type="button" class="btn-login" onclick="registrarProducto()">Registrar</button>
+      </div>
+  </form>
+</div>
+  `;
+};
+
+const templateRegistrarCategoria = () => {
+  return `
+    <div class="container-form animate__animated animate__fadeIn">
+    <form autocomplete="off">
+        <h1 class="form-title">Registro de Categoria</h1>
+        <div class="group-form">
+            <input type="text" id="name" class="form-input" placeholder=" ">
+            <label class="label-control">Name</label>
+        </div>
+        <div class="group-form">
+            <input type="text" id="Image" class="form-input" placeholder=" ">
+            <label class="label-control">Image</label>
+        </div>
+        <div class="group-form">
+            <button type="button" class="btn-login" onclick="registrarCategoria()" >Sign in</button>
+        </div>
+    </form>
+  </div>
+  `;
 };
