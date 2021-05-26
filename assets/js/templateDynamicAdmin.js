@@ -130,24 +130,25 @@ const templateCategoria = () => {
   getCategoryAll();
 };
 
-const AgregarEditar = (key = "producto") => {
+const AgregarEditar = (key = "producto", verb = "POST", data = "") => {
   document.getElementById("viewDetail").style.display = "none";
   document.getElementById("modal-btn").checked = true;
 
   const TEMPLATE_DYNAMIC = {
     producto: templateRegistrarProducto(),
-    categoria: templateRegistrarCategoria(),
+    categoria: templateRegistrarCategoria(verb, data),
   };
 
   let template = TEMPLATE_DYNAMIC[key] || templateRegistrarProducto();
   document.getElementById("templateDynamic").innerHTML = template;
+  if (verb === "PUT") showDataCategoria(data);
 };
 
 const templateRegistrarProducto = () => {
   return `
   <div class="container-form  container-form-register animate__animated animate__fadeIn">
   <form autocomplete="off">
-      <h1 class="form-title">Registro de producto</h1>
+      <h1 class="form-title">Registrar producto</h1>
       <div class="group-form">
           <input type="text" id="name" class="form-input" placeholder=" ">
           <label class="label-control">Name</label>
@@ -179,23 +180,25 @@ const templateRegistrarProducto = () => {
   `;
 };
 
-const templateRegistrarCategoria = () => {
+const templateRegistrarCategoria = (verb) => {
+  let nombreBotonOrTitulo = verb === "POST" ? "Registrar" : "Actualizar";
   return `
     <div class="container-form animate__animated animate__fadeIn">
-    <form autocomplete="off">
-        <h1 class="form-title">Registro de Categoria</h1>
-        <div class="group-form">
-            <input type="text" id="name" class="form-input" placeholder=" ">
-            <label class="label-control">Name</label>
-        </div>
-        <div class="group-form">
-            <input type="text" id="Image" class="form-input" placeholder=" ">
-            <label class="label-control">Image</label>
-        </div>
-        <div class="group-form">
-            <button type="button" class="btn-login" onclick="registrarCategoria()" >Sign in</button>
-        </div>
-    </form>
-  </div>
+      <form autocomplete="off">
+          <h1 class="form-title">${nombreBotonOrTitulo} Categoria</h1>
+          <div class="group-form">
+              <input type="text" id="name" class="form-input" placeholder=" ">
+              <label class="label-control">Name</label>
+          </div>
+          <div class="group-form">
+              <input type="text" id="image" class="form-input" placeholder=" ">
+              <label class="label-control">Image</label>
+              <input type="hidden" id="idcategoria">
+          </div>
+          <div class="group-form">
+              <button type="button" class="btn-login" onclick="registrarCategoria('${verb}')" >${nombreBotonOrTitulo}</button>
+          </div>
+      </form>
+    </div>
   `;
 };

@@ -1,6 +1,6 @@
 <?php
 define('__RUTA__model', dirname(dirname(__FILE__)));
-require_once __RUTA__model."/model/ProductoModel.php";
+require_once __RUTA__model."/Model/ProductoModel.php";
 
 
 

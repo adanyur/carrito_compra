@@ -74,7 +74,6 @@ class DBController
 
     function insertDB2($query)
     {
-        
         $sql_statement = $this->conn->prepare($query);
         $sql_statement->execute();
         return mysqli_insert_id ( $this->conn );
@@ -100,7 +99,6 @@ class DBController
 
 
     function bindParams($sql_statement, $params){
-        
         $param_type = "";
         foreach ($params as $query_param) {
             $param_type .= $query_param["param_type"];
