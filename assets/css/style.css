@@ -286,9 +286,15 @@ a.article:hover {
   margin: 10px;
   text-align: center;
   border: 1px solid #000;
+  padding: 0 1.2rem;
   border-radius: 2rem;
   outline: none;
   width: 100%;
+  height: 100%;
+}
+
+.input-select {
+  height: 50px;
 }
 
 .test-scroll {
@@ -553,6 +559,12 @@ a.article:hover {
   color: red;
 }
 
+.img-svg-2 {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
 .img-svg:hover {
   color: red;
 }
@@ -600,6 +612,7 @@ a.article:hover {
   position: relative;
   height: 48px;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .group-textarea {
@@ -615,7 +628,7 @@ a.article:hover {
   height: 100%;
   border: 1px solid #dadce0;
   border-radius: 2rem;
-  padding: 1.2rem;
+  padding: 0 1.2rem;
   font-size: 1rem;
   outline: none;
   background: none;
@@ -896,6 +909,11 @@ a.article:hover {
 
   .card-form {
     width: 360px;
+  }
+
+  .img-svg-2 {
+    width: 30px;
+    height: 30px;
   }
 }
 /*******************/

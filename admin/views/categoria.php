@@ -5,12 +5,10 @@ $categoria = new CategoriaController();
 
 
 $idshow = isset($_GET['idshow'])? $_GET['idshow']:null; 
-
-$name = isset($_POST['name'])? $_POST['name']:null;
-$image = isset($_POST['image'])? $_POST['image']:null;
 $id = isset($_POST['id'])? $_POST['id']:null;
-$method = isset($_POST['method'])? $_POST['method']:null;
-
+$name = isset($_POST['name'])? $_POST['name']:null;
+$image = isset($_FILES['image'])?$_FILES['image']:null;
+$method =isset($_POST['method'])? $_POST['method']:null;
 $REQUEST_METHOD = $method ? $method:$_SERVER['REQUEST_METHOD'];
 
 switch ($REQUEST_METHOD) {

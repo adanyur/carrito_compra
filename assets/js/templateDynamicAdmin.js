@@ -76,10 +76,9 @@ const templateSlider = () => {
   </nav>
   <div id="content">
   <nav class="navbar navbar-expand-md navbar-dark bg-dark"> 
-    <div class="container-fluid">
-        <button type="button" id="sidebarCollapse" class="btn btn-info">
-            <i class="fas fa-align-left"></i>
-            <span>...</span>
+    <div class="container-fluid">    
+        <button type="button" id="sidebarCollapse" style="background:none;border:none">
+            <img src="../assets/icon/square.svg" class="img-svg"> 
         </button>
         <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-align-justify"></i>
@@ -135,16 +134,18 @@ const AgregarEditar = (key = "producto", verb = "POST", data = "") => {
   document.getElementById("modal-btn").checked = true;
 
   const TEMPLATE_DYNAMIC = {
-    producto: templateRegistrarProducto(),
-    categoria: templateRegistrarCategoria(verb, data),
+    categoria: templateRegistrarCategoria(verb),
+    producto: templateRegistrarProducto(verb),
   };
+  document.getElementById("templateDynamic").innerHTML = TEMPLATE_DYNAMIC[key];
 
-  let template = TEMPLATE_DYNAMIC[key] || templateRegistrarProducto();
-  document.getElementById("templateDynamic").innerHTML = template;
-  if (verb === "PUT") showDataCategoria(data);
+  if (verb === "PUT" && key === "categoria") showDataCategoria(data);
+  if (verb === "PUT" && key === "producto") showDataProducto(data);
 };
 
-const templateRegistrarProducto = () => {
+const templateRegistrarProducto = (verb) => {
+  getCategoryAll(false);
+  let nombreBotonOrTitulo = verb === "POST" ? "Registrar" : "Actualizar";
   return `
   <div class="container-form  container-form-register animate__animated animate__fadeIn">
   <form autocomplete="off">
@@ -166,14 +167,17 @@ const templateRegistrarProducto = () => {
           <label class="label-control">Detail 2</label>
       </div>
       <div class="group-form">
-          <input type="text" id="Image" class="form-input" placeholder=" ">
-          <label class="label-control">Image</label>
+        <select id="optionCategoria" class="form-input"></select>
+      </div>
+      <div id="image_preview" class="group-form-preview">
+        <img id="previewing" src="../assets/img/no-image.jpg" class="image-preview"/>
       </div>
       <div class="group-form">
-        <input type="file" id="file" name="file">
+          <input type="file" id="imageProducto" onChange="onPreview(event)" accept="image/*">
+          <input type="hidden" id="idproducto">
       </div>
       <div class="group-form">
-          <button type="button" class="btn-login" onclick="registrarProducto()">Registrar</button>
+          <button type="button" class="btn-login" onclick="registrarProducto('${verb}')">${nombreBotonOrTitulo}</button>
       </div>
   </form>
 </div>
@@ -184,19 +188,21 @@ const templateRegistrarCategoria = (verb) => {
   let nombreBotonOrTitulo = verb === "POST" ? "Registrar" : "Actualizar";
   return `
     <div class="container-form animate__animated animate__fadeIn">
-      <form autocomplete="off">
+      <form autocomplete="off" id="categoriaForm" enctype="multipart/form-data">
           <h1 class="form-title">${nombreBotonOrTitulo} Categoria</h1>
           <div class="group-form">
               <input type="text" id="name" class="form-input" placeholder=" ">
               <label class="label-control">Name</label>
           </div>
+          <div id="image_preview" class="group-form-preview">
+            <img id="previewing" src="../assets/img/no-image.jpg" width="250" height="230" />
+          </div>
           <div class="group-form">
-              <input type="text" id="image" class="form-input" placeholder=" ">
-              <label class="label-control">Image</label>
+              <input type="file" id="imageCategoria"  onChange="onPreview(event)" accept="image/*">
               <input type="hidden" id="idcategoria">
           </div>
           <div class="group-form">
-              <button type="button" class="btn-login" onclick="registrarCategoria('${verb}')" >${nombreBotonOrTitulo}</button>
+          <button type="button" class="btn-login" onclick="registrarCategoria('${verb}')" >${nombreBotonOrTitulo}</button>
           </div>
       </form>
     </div>

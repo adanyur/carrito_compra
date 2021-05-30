@@ -6,12 +6,13 @@ require_once RUTA."/config/DBController.php";
 class CategoriaModel extends DBController{
 
     function getCategoriatAll(){
-    $query ="SELECT name,id FROM tbl_category";
+    $query ="SELECT name,id,image FROM tbl_category";
          return $this->getDBResult($query);;
     } 
 
-    function postAddCategory($name,$image){
-     $query = "INSERT INTO tbl_category (name,image) VALUES ('$name', '$image')";
+    function postAddCategory($name,$image=array()){
+     $imageRuta='../assets/img/category/'.$image["name"];
+     $query = "INSERT INTO tbl_category (name,image) VALUES ('$name', '$imageRuta')";
      return $this->insertDB2($query);
      }
 
