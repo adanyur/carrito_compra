@@ -9,14 +9,18 @@
         <li class="nav-item"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a> </li>
         <li class="nav-item"> <a class="nav-link" href="contact.html">Contact <span class="sr-only">(current)</span></a> </li>
-        
+        <li class="nav-item"> <a class="nav-link" href="../admin/">Admin <span class="sr-only">(current)</span></a> </li>
   </ul> 
 </div>
 <div class="container-cart-count animate__animated animate__fadeIn">
-  <button type="button" class="btn btn-black"  onclick="openModal('CART')">
-    <img src="../assets/icon/shopping-cart.svg" >   
-    <span class="badge badge-light" id="countCarrito"></span>
-  </button>
+    <button type="button" class="btn btn-black">
+      <img src="../assets/icon/star.svg">
+      <span class="badge badge-light">0</span>
+    </button>
+    <button type="button" class="btn btn-black"  onclick="openModal('CART')">
+      <img src="../assets/icon/shopping-cart.svg" >   
+      <span class="badge badge-light" id="countCarrito"></span>
+    </button>
   <div id="auth"></div>
 </div>
 </nav>

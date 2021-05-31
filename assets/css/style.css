@@ -192,6 +192,20 @@ a.article:hover {
   border: 0;
 }
 
+.card-position {
+  position: relative;
+}
+
+.icon-favorite {
+  position: absolute;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.image-icon-favorite {
+  filter: drop-shadow(2px 4px 8px #000);
+}
+
 .card-shadow:hover {
   box-shadow: 0 8px 6px -6px black;
   transform: translateY(-10px);

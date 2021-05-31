@@ -67,7 +67,7 @@ const getCategoriaList = (data) => {
           </div>
           <div class="container-table-footer">
             <img src="../assets/icon/edit.svg" class="img-svg-2" onclick="AgregarEditar('categoria','PUT',${value.id})">
-            <img src="../assets/icon/delete.svg" class="img-svg-2" onclick="deleteProducto(${value.id})"> 
+            <img src="../assets/icon/delete.svg" class="img-svg-2" onclick="deleteCategoria(${value.id})"> 
           </div>
       </div>  `;
 
@@ -116,7 +116,7 @@ const showDataProducto = (data) => {
     const producto = JSON.parse(value);
     producto.map((value) => {
       document.getElementById("name").value = value.name;
-      document.getElementById("image").value = value.image;
+      //document.getElementById("image").value = value.image;
       document.getElementById("detalil1").value = value.detail1;
       document.getElementById("detalil2").value = value.detail2;
       document.getElementById("idproducto").value = value.id;

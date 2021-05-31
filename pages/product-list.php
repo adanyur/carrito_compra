@@ -13,7 +13,7 @@ $shoppingCart = new Producto();
 $product_array = $shoppingCart->getAllProduct();
 foreach ($product_array as $key => $value) {
 ?>
-<div class="card mb-4 card-shadow card-width">
+<div class="card mb-4 card-shadow card-width card-position">
   <img class="card-img-top img-border-radius" src="<?=$product_array[$key]["image"];?>" alt="Card image cap">
   <div class="card-body">
       <div class="card-info">
@@ -38,6 +38,10 @@ foreach ($product_array as $key => $value) {
                <img src="../assets/icon/loupe.svg" class="img-icon">
             </button>
       </div>
+  </div>
+  <div class="icon-favorite">
+      <img src="../assets/icon/star-color.svg" class="image-icon-favorite-success">
+      <!-- <img src="../assets/icon/star-color.svg" class="image-icon-favorite"> -->
   </div>
 </div>
 <?php } ?>

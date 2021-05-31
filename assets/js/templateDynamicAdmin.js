@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  if (!auth) templateHome();
+  if (auth) templateHome();
 });
 
 const session = () => JSON.parse(localStorage.getItem("session"));
@@ -187,7 +187,7 @@ const templateRegistrarProducto = (verb) => {
 const templateRegistrarCategoria = (verb) => {
   let nombreBotonOrTitulo = verb === "POST" ? "Registrar" : "Actualizar";
   return `
-    <div class="container-form animate__animated animate__fadeIn">
+    <div class="container-form container-form-register animate__animated animate__fadeIn">
       <form autocomplete="off" id="categoriaForm" enctype="multipart/form-data">
           <h1 class="form-title">${nombreBotonOrTitulo} Categoria</h1>
           <div class="group-form">
