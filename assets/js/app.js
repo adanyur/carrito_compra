@@ -2,6 +2,7 @@ $(document).ready(function () {
   listCategory();
   buttonAuth();
   countCarrito();
+  countFavorite();
   session()
     ? localStorage.setItem("session", true)
     : localStorage.setItem("session", false);
@@ -88,13 +89,13 @@ const AddCart = (idProduct) => {
   let data = { idproducto, cantidad, usuario };
   $.post("../pages/cart-list.php", data, (data) => {
     countCarrito();
+    Toast("Se agrego a su carrito");
   });
 };
 
 const cantidadValidacion = (idProduct) => {
   let cantidad = document.getElementById("quantity" + idProduct).value;
   let cantidadFiltro = document.getElementById("q" + idProduct).value || 1;
-  console.log("cantida");
   return cantidad === cantidadFiltro
     ? cantidad
     : cantidad > cantidadFiltro
@@ -121,6 +122,7 @@ const openModal = (type) => {
   document.getElementById("viewDetail").style.display = "none";
   document.getElementById("templateDynamic").style.display = "block";
   document.getElementById("modal-btn").checked = true;
+
   switch (type) {
     case "CART": {
       cartProductLisModal();
@@ -132,6 +134,11 @@ const openModal = (type) => {
     }
     case "EMAIL": {
       email();
+      break;
+    }
+
+    case "FAVORITE": {
+      listFavorite();
       break;
     }
   }
@@ -146,7 +153,7 @@ const cartProductLisModal = () => {
     let data = JSON.parse(value);
     let template = "";
     if (value === "null") {
-      emptyCart();
+      emptyCart({ image: "CARRITO", message: "No tiene nada en el carrito" });
       return;
     }
     template += `<div class="modal-head" id="modal-head">
@@ -182,11 +189,18 @@ const cartProductLisModal = () => {
   });
 };
 
-const emptyCart = () => {
+const emptyCart = ({ image, message }) => {
   document.getElementById("modal-btn").checked = true;
+  const IMAGEN_DYNAMIC = {
+    FAVORITE: `<img src="../assets/icon/star-color.svg" class="imagen-icon-empty">`,
+    CARRITO: `<img src="../assets/icon/empty-cart.svg" class="imagen-icon-empty">`,
+  };
+
   let template = `
     <div class="modal-body">
       <div class="container-message">
+          ${IMAGEN_DYNAMIC[image]}
+          <h4>${message}</h4>
       </div>
     </div>
     `;
@@ -195,10 +209,12 @@ const emptyCart = () => {
 
 const messageAuth = () => {
   document.getElementById("modal-btn").checked = true;
+
   let template = `
   <div class="modal-body">
     <div class="container-message">
-        <h1>Debe iniciar session</h1>
+        <img src="../assets/icon/user-color.svg">
+        <h4>Debe iniciar session</h4>
     </div>
   </div>
   `;
@@ -369,6 +385,7 @@ const deleteCart = (id) => {
     countCarrito();
     calculoCart();
     cartProductLisModal();
+    Toast("Se elimino del carrito");
   });
 };
 
@@ -474,4 +491,101 @@ const buttoAddCart = (auth) => {
 const buttonAuth = () => {
   template = session() ? perfil() : buttonLogin();
   document.getElementById("auth").innerHTML = template;
+};
+
+/*********************FAVORITE************************/
+const countFavorite = () => {
+  $.get(`../model/favorite.php?id=${id()}`, (value) => {
+    const data = JSON.parse(value);
+    document.getElementById("countFavorito").innerHTML = 0;
+  });
+};
+
+const listFavorite = () => {
+  if (!id()) {
+    messageAuth();
+    return;
+  }
+  $.get(`../model/favorite.php?id=${id()}`, (value) => {
+    let template = "";
+    if (value === "null") {
+      emptyCart({ image: "FAVORITE", message: "No tiene favoritos" });
+      return;
+    }
+
+    template += `<div class="modal-head" id="modal-head">
+                  <h1 class="modal-title text-center" id="title-modal">Favoritos</h1>
+                </div>  
+                <div class="modal-body" id="modal-body">
+                ${templateFavorite(JSON.parse(value))}
+          `;
+
+    template += `</div>`;
+    document.getElementById("templateDynamic").innerHTML = template;
+  });
+};
+
+const templateFavorite = (data) => {
+  return data.map((value) => {
+    return `
+    <div class="card mb-2 card-shadow card-shadow-2">
+    <div class="card-body card-padding">
+      <div class="container-order">
+          <div class="container-img">
+              <img src="${value.imagenProducto}" class="img-product">
+          </div>
+          <div class="container-order-detall">
+          <div class="detalle-head">
+            <span class="info-detalle">${value.descripcionProducto}</span>
+            <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteFavorite(${
+              value.idFavorite
+            })">
+          </div>
+          <div class="detalle-body">
+            <div class="detalle-item">
+              <span class="head-info">Cantidad</span>
+              <span class="body-info">${data.quantity || 0.0}</span>
+            </div>
+            <div class="detalle-item border-separador">
+            <span class="head-info">Precio</span>
+              <span class="body-info">${value.precioProducto}</span>
+            </div>
+            <div class="detalle-item">
+            <span class="head-info">Total</span>
+              <span class="body-info">${data.total || 0.0}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+   `;
+  });
+};
+
+const favorite = (codigoProducto, isCheck) => {
+  const methods = isCheck ? "POST" : "DELETE";
+  const params = { codigoProducto, methods, idUser: id() };
+  $.post(`../model/favorite.php`, params, (value) => {
+    Toast("Se agrego a sus favoritos");
+  });
+};
+
+const deleteFavorite = (id) => {
+  const params = { id, methods: "DELETE" };
+  $.post(`../model/favorite.php`, params, (value) => {
+    Toast("Se elimino de tus favoritos");
+    listFavorite();
+  });
+};
+
+/***********************MENSAJES*******************/
+
+const Toast = (text) => {
+  let message = document.getElementById("snackbar");
+  message.innerText = text;
+  message.className = "show show-success";
+  setTimeout(() => {
+    message.className = message.className.replace("show", "");
+  }, 3000);
 };

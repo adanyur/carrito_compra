@@ -3,3 +3,4 @@
         <div class="modal-wrap" id="templateDynamic"></div>
         <div class="modal-wrap modal-desktop" id="viewDetail"></div>
     </div>
+    <div id="snackbar"></div>

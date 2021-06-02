@@ -13,9 +13,9 @@
   </ul> 
 </div>
 <div class="container-cart-count animate__animated animate__fadeIn">
-    <button type="button" class="btn btn-black">
+    <button type="button" class="btn btn-black" onclick="openModal('FAVORITE')">
       <img src="../assets/icon/star.svg">
-      <span class="badge badge-light">0</span>
+      <span class="badge badge-light" id="countFavorito"></span>
     </button>
     <button type="button" class="btn btn-black"  onclick="openModal('CART')">
       <img src="../assets/icon/shopping-cart.svg" >   

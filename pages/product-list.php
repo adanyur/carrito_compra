@@ -1,3 +1,4 @@
+<meta name="theme-color" content="#343a40">
 <?php
 define('RUTA_CLASS', dirname(dirname(__FILE__))); 
 require_once  RUTA_CLASS.'/include/head.php';
@@ -39,8 +40,11 @@ foreach ($product_array as $key => $value) {
             </button>
       </div>
   </div>
-  <div class="icon-favorite">
-      <img src="../assets/icon/star-color.svg" class="image-icon-favorite-success">
+  <div class="icon-favorite" >
+      <label for="favorite<?=$product_array[$key]['id'];?>">
+         <img src="../assets/icon/star-color.svg" class="image-icon-favorite-success" >
+      </label>
+      <input type="checkbox" id="favorite<?=$product_array[$key]['id'];?>"  onclick="favorite(<?=$product_array[$key]['id'];?>,event.target.checked)">
       <!-- <img src="../assets/icon/star-color.svg" class="image-icon-favorite"> -->
   </div>
 </div>
