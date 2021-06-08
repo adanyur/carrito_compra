@@ -1,9 +1,11 @@
 $(document).ready(() => {
-  if (auth) templateHome();
-});
+  const AUTH = JSON.parse(localStorage.getItem("sessionAdmin"));
+  !AUTH && templateLogin();
+  AUTH && templateHome();
 
-const session = () => JSON.parse(localStorage.getItem("session"));
-const auth = session() ? true : false;
+  const useradmin = JSON.parse(localStorage.getItem("userAdmin"));
+  document.getElementById("userName").innerText = useradmin.firstname;
+});
 
 const templateLogin = () => {
   document.getElementById("templateDynamicAdmin").style.margin = "0 1rem";
@@ -15,15 +17,15 @@ const templateLogin = () => {
       <div class="card-form" id="card-login">
       <h1 class="form-title">Login in</h1>
         <div class="group-form">
-          <input type="text" class="form-input" placeholder=" ">
+          <input type="text" class="form-input" placeholder=" " id="useradmin">
           <label class="label-control">User</label>
         </div>
         <div class="group-form">
-          <input type="text" class="form-input" placeholder=" ">
+          <input type="text" class="form-input" placeholder=" " id="passworadmin">
           <label class="label-control">Password</label>
         </div>
         <div class="group-form">
-          <button type="button" onclick="templateHome()" class="btn-login">Sign in</button>
+          <button type="button" onclick="auth()" class="btn-login">Sign in</button>
         </div>
       </div>
  `;
@@ -42,7 +44,10 @@ const templateSlider = () => {
           <h3>Admin</h3>
       </div>
       <ul class="list-unstyled components">
-          <p>Yur Adan</p>
+          <p id="userName"></p>
+          <li>
+            <a href="#" onclick="templateProduct()">Ordenes</a>
+          </li>
           <li>
               <a href="#" onclick="templateProduct()">Producto</a>
           </li>

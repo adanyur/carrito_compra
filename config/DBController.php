@@ -91,7 +91,7 @@ class DBController
     
     function deleteDB($query,$params){
         $sql_statement = $this->conn->prepare($query);
-        if (! empty($params)) {
+        if (!empty($params)) {
             $this->bindParams($sql_statement, $params);
         }
         $sql_statement->execute();

@@ -17,6 +17,8 @@
 body {
   font-family: "Poppins", sans-serif;
   background: #fafafa;
+  margin: 0;
+  padding: 0;
 }
 
 p {
@@ -203,7 +205,7 @@ a.article:hover {
 }
 
 .image-icon-favorite {
-  filter: drop-shadow(2px 4px 8px #000);
+  filter: drop-shadow(2px 4px 8px #fffcc4);
 }
 
 .card-shadow:hover {
@@ -638,20 +640,24 @@ a.article:hover {
 }
 
 .form-input {
+  position: absolute;
   width: 100%;
   height: 100%;
   border: 1px solid #dadce0;
   border-radius: 2rem;
-  padding: 0 1.2rem;
+  /*padding: 0 1.2rem;*/
+  padding: 1rem;
   font-size: 1rem;
   outline: none;
   background: none;
   z-index: 1;
+  top: 0;
+  left: 0;
 }
 
 .label-control {
   position: absolute;
-  top: 0.9rem;
+  top: 1rem;
   left: 1rem;
   background-color: #fff;
   padding: 0 0.25rem;
@@ -670,10 +676,10 @@ a.article:hover {
 
 .form-input:not(:placeholder-shown).form-input:not(:focus) + .label-control {
   top: -0.5rem;
-  left: 0.8rem;
-  z-index: 10;
+  left: 0.9rem;
   font-weight: 500;
   font-size: 0.75rem;
+  z-index: 10;
 }
 
 .form-input:focus {
@@ -933,6 +939,11 @@ a.article:hover {
   height: 200px;
 }
 
+/************UTILS*****************/
+.w-100 {
+  width: 100%;
+}
+
 /*********************************************/
 @media (min-width: 768px) and (min-width: 992px) {
   .container-content {
@@ -962,7 +973,7 @@ a.article:hover {
     width: auto;
   }
 
-  .img-icon {
+  .btn-add > .img-icon {
     width: 30px;
     height: 30px;
   }

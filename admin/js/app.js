@@ -191,3 +191,37 @@ const imageIsLoaded = (e) => {
   $("#previewing").attr("width", "100%");
   $("#previewing").attr("height", "230px");
 };
+
+/********************LOGIN******************/
+
+const auth = () => {
+  let user = document.getElementById("useradmin").value;
+  let password = document.getElementById("passworadmin").value;
+  const params = { user, password };
+  $.post(`views/auth.php`, params, (value) => {
+    let data = JSON.parse(value);
+    if (data.status) {
+      seData(JSON.parse(data.data));
+      return;
+    }
+    Toast(data.message);
+  });
+};
+
+const seData = (data) => {
+  data.map((val) => {
+    localStorage.setItem("sessionAdmin", true);
+    localStorage.setItem("userAdmin", JSON.stringify(val));
+    templateHome();
+  });
+};
+
+/***********************TOASTER**************************/
+const Toast = (text) => {
+  let message = document.getElementById("snackbar");
+  message.innerText = text;
+  message.className = "show show-success";
+  setTimeout(() => {
+    message.className = message.className.replace("show", "");
+  }, 3000);
+};

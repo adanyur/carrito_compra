@@ -6,6 +6,8 @@ $(document).ready(function () {
   session()
     ? localStorage.setItem("session", true)
     : localStorage.setItem("session", false);
+
+  localStorage.setItem("sessionAdmin", false);
 });
 
 /***************LOGIN****************/
@@ -75,7 +77,7 @@ const register = () => {
 
 /************************CARRITTO*************************/
 
-const AddCart = (idProduct) => {
+const AddCart = (idProduct, isFavorite = false) => {
   document.getElementById("viewDetail").style.display = "none";
   document.getElementById("templateDynamic").style.display = "block";
   if (!id()) {
@@ -83,8 +85,12 @@ const AddCart = (idProduct) => {
     return;
   }
 
-  let cantidad = document.getElementById("quantity" + idProduct).value;
-  let idproducto = document.getElementById("idproduct" + idProduct).value;
+  let nameId = isFavorite
+    ? `quantityFavorite${idProduct}`
+    : `quantity${idProduct}`;
+
+  let cantidad = document.getElementById(`${nameId}`).value;
+  let idproducto = document.getElementById(`idproduct${idProduct}`).value;
   let usuario = id();
   let data = { idproducto, cantidad, usuario };
   $.post("../pages/cart-list.php", data, (data) => {
@@ -208,6 +214,7 @@ const emptyCart = ({ image, message }) => {
 };
 
 const messageAuth = () => {
+  document.getElementById("viewDetail").style.display = "none";
   document.getElementById("modal-btn").checked = true;
 
   let template = `
@@ -353,20 +360,31 @@ const email = () => {
   <form autocomplete="off">
       <h1 class="form-title">Contactenos</h1>
       <div class="group-form">
-          <input type="text" id="user" class="form-input" placeholder=" ">
+          <input type="text" id="email" class="form-input" placeholder=" ">
           <label class="label-control">Email</label>
       </div>
       <div class="group-form group-textarea">
-        <textarea class="form-input" placeholder=" " rows="5" cols="10"></textarea>
+        <textarea class="form-input" placeholder=" " rows="5" cols="10" id="comentario"></textarea>
         <label class="label-control">Comentario</label>
       </div>
       <div class="group-form">
-          <button type="button" onclick="login()" class="btn-login">Sign in</button>
+          <button type="button" onclick="senEmail()" class="btn-login">Enviar</button>
       </div>
   </form>
 </div>
 `;
   document.getElementById("templateDynamic").innerHTML = template;
+};
+
+const senEmail = () => {
+  let email = document.getElementById("email").value;
+  let comentario = document.getElementById("comentario").value;
+
+  const params = { email, comentario };
+
+  $.post("../model/mail.php", params, (value) => {
+    Toast("Se envio el correo");
+  });
 };
 
 const calculoCart = () => {
@@ -450,7 +468,7 @@ const SearchCategoryProduct = (idcart) => {
 const perfil = () => {
   return `
   <div class="dropdown animate__animated animate__fadeIn">
-  <span><img src="../assets/icon/user.svg"></span>
+  <span><img src="../assets/icon/user_2.svg"></span>
   <div class="dropdown-content">
     <div class="dropdown-content-item">
       ${user()}
@@ -537,22 +555,34 @@ const templateFavorite = (data) => {
           <div class="container-order-detall">
           <div class="detalle-head">
             <span class="info-detalle">${value.descripcionProducto}</span>
-            <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteFavorite(${
-              value.idFavorite
-            })">
+            <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteFavorite(${value.idFavorite})">
           </div>
           <div class="detalle-body">
             <div class="detalle-item">
               <span class="head-info">Cantidad</span>
-              <span class="body-info">${data.quantity || 0.0}</span>
+              <span class="body-info">
+              <input type="number"  name="quantity${value.idProducto}"  
+              value=1 
+              class="input-control quantity${value.idProducto}"
+              id="quantityFavorite${value.idProducto}"
+              style="margin:0;padding:0">
+              </span>
+              <input type="hidden" id="idproduct${value.idProducto}" name="id" value="${value.idProducto}">
             </div>
             <div class="detalle-item border-separador">
             <span class="head-info">Precio</span>
               <span class="body-info">${value.precioProducto}</span>
             </div>
             <div class="detalle-item">
-            <span class="head-info">Total</span>
-              <span class="body-info">${data.total || 0.0}</span>
+            <span class="head-info">&nbsp;</span>
+              <span class="body-info w-100">
+                <button  type="button" 
+                  id="product${value.idProducto}"
+                  onclick="AddCart(${value.idProducto},true)"
+                  class="btn-add button-add-product">
+                  <img src="../assets/icon/add-to-cart.svg" class="img-icon" width="20px" heigth="20px">
+                </button>
+              </span>
             </div>
           </div>
         </div>
@@ -564,11 +594,33 @@ const templateFavorite = (data) => {
 };
 
 const favorite = (codigoProducto, isCheck) => {
+  if (!id()) {
+    messageAuth();
+    iconFavorite({ codigoProducto, isCheck: false });
+    return;
+  }
+  iconFavorite({ codigoProducto, isCheck });
+
   const methods = isCheck ? "POST" : "DELETE";
   const params = { codigoProducto, methods, idUser: id() };
   $.post(`../model/favorite.php`, params, (value) => {
     Toast("Se agrego a sus favoritos");
   });
+};
+
+const iconFavorite = (data) => {
+  const IMAGEN_DYNAMIC = {
+    true: `<img src="../assets/icon/star-color.svg" class="image-icon-favorite-success" >`,
+    false: `<img src="../assets/icon/star.svg" class="image-icon-favorite-success">`,
+  };
+
+  document.getElementById(
+    `image-favorite-default${data.codigoProducto}`
+  ).style.display = "none";
+
+  document.getElementById(
+    `image-favorite-chance${data.codigoProducto}`
+  ).innerHTML = IMAGEN_DYNAMIC[data.isCheck];
 };
 
 const deleteFavorite = (id) => {

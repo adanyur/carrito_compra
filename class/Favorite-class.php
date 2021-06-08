@@ -46,6 +46,24 @@ class Favorite extends DBController
         return $this->deleteDB($query,$params);
     }
 
+    function deleteFavoriteCheck($idUser,$idProducto){
+        $query = "DELETE FROM tbl_favorite WHERE user_id=?  AND product_id=?";
+
+        $params = array(
+            array(
+                "param_type" => "s",
+                "param_value" => $idUser
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $idProducto
+            )
+        );
+
+        return $this->deleteDB($query,$params);
+
+    }
+
 
 
 

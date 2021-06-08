@@ -8,9 +8,7 @@ $codigoProducto=isset($_POST['codigoProducto'])?$_POST['codigoProducto']:'';
 $method=isset($_POST['methods'])?$_POST['methods']:'';
 $idUser=isset($_POST['idUser'])?$_POST['idUser']:'';
 $id=isset($_POST['id'])?$_POST['id']:'';
-
 $idUserGet=isset($_GET['id'])?$_GET['id']:'';
-
 
 $REQUEST_METHOD = $method ? $method:$_SERVER['REQUEST_METHOD'];
 
@@ -22,7 +20,11 @@ switch ($REQUEST_METHOD) {
         return die($favorite->getFavoriteById($idUserGet));
         break;    
     case 'DELETE':
-        return die($favorite->deleteFavorite($id));
+        if(isset($_POST['id'])){
+            return die($favorite->deleteFavorite($id));
+        }else{
+            return die($favorite->deleteFavoriteCheck($idUser,$codigoProducto));
+        }
         break;
     default:       
 }
