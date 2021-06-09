@@ -6,7 +6,6 @@ $(document).ready(function () {
   session()
     ? localStorage.setItem("session", true)
     : localStorage.setItem("session", false);
-
   localStorage.setItem("sessionAdmin", false);
 });
 

@@ -225,3 +225,100 @@ const Toast = (text) => {
     message.className = message.className.replace("show", "");
   }, 3000);
 };
+
+/********************ORDER************************/
+
+const getOrderForDate = () => {
+  $.get(`views/order.php?fecha=2021-05-08`, (value) => {
+    let data = JSON.parse(value);
+
+    data.map((value) => {
+      let template = "";
+      template += `
+                <div class="container-table" id="table-list">
+                  <div class="container-table-header">
+                    <img src="../assets/icon/male-avatar.svg" class="imagen-list">
+                  </div>
+                    <div class="container-table-body">
+                        <div class="container-row-header">
+                            <div class="cell-item">Client</div>
+                            <div class="cell-item">payment_type</div>
+                            <div class="cell-item">order_status</div>
+                            <div class="cell-item">fecha</div>
+
+                        </div>  
+                        <div class="container-row-body">
+                          <div class="cell-item">${value.client}</div>
+                          <div class="cell-item">${value.payment_type}</div>
+                          <div class="cell-item">${value.order_status}</div>
+                          <div class="cell-item">${value.fecha}</div>
+                        </div>
+                    </div>
+                    <div class="container-table-footer">
+                      <img src="../assets/icon/edit.svg" class="img-svg-2" onclick="showOrder()">
+                    </div>
+                </div>  `;
+
+      document.getElementById("listOrder").innerHTML = template;
+    });
+  });
+};
+
+const showOrder = () => {
+  $.get(`views/order.php?idshow=1`, (value) => {
+    document.getElementById("viewDetail").style.display = "none";
+    document.getElementById("templateDynamic").style.display = "block";
+    document.getElementById("modal-btn").checked = true;
+    let data = JSON.parse(value);
+    let template = "";
+    template += `<div class="modal-head" id="modal-head">
+                  <h1 class="modal-title text-center" id="title-modal">Detalle Orden</h1>
+                  </div>  
+                  <div class="modal-body" id="modal-body">
+                    ${openModalOrder(data)}
+                  </div>
+                  <div class="modal-footer" id="modal-footer">
+                  <button class="btn-add">
+                    <span class="info-payment">
+                      <img src="../assets/icon/hand.svg">
+                    </span>
+                  </button>
+                </div>
+                  `;
+    document.getElementById("templateDynamic").innerHTML = template;
+  });
+};
+const openModalOrder = (data) => {
+  return data.map((data) => {
+    return `<div class="card mb-2 card-shadow card-shadow-2">
+              <div class="card-body card-padding">
+                <div class="container-order">
+                    <div class="container-img">
+                        <img src="${data.image}" class="img-product">
+                    </div>
+                    <div class="container-order-detall">
+                    <div class="detalle-head">
+                      <span class="info-detalle">${data.name}</span>
+                      <img src="../assets/icon/delete.svg" class="img-svg" onclick="deleteCart(${data.id})">
+                    </div>
+                    <div class="detalle-body">
+                      <div class="detalle-item">
+                        <span class="head-info">Cantidad</span>
+                        <span class="body-info">${data.quantity}</span>
+                      </div>
+                      <div class="detalle-item border-separador">
+                      <span class="head-info">Precio</span>
+                        <span class="body-info">${data.price}</span>
+                      </div>
+                      <div class="detalle-item">
+                      <span class="head-info">Total</span>
+                        <span class="body-info">${data.total}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          `;
+  });
+};

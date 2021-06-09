@@ -46,7 +46,7 @@ const templateSlider = () => {
       <ul class="list-unstyled components">
           <p id="userName"></p>
           <li>
-            <a href="#" onclick="templateProduct()">Ordenes</a>
+            <a href="#" onclick="templateOrder()">Ordenes</a>
           </li>
           <li>
               <a href="#" onclick="templateProduct()">Producto</a>
@@ -103,6 +103,7 @@ const templateHome = () => {
   $("#sidebarCollapse").on("click", () => {
     $("#sidebar").toggleClass("active");
   });
+  templateOrder();
 };
 
 const ocultarMenuLateral = () => {
@@ -132,6 +133,19 @@ const templateCategoria = () => {
     `;
   document.getElementById("template").innerHTML = template;
   getCategoryAll();
+};
+
+const templateOrder = () => {
+  ocultarMenuLateral();
+  const template = `
+  <div class="container-btn">
+    <h1>conteo</h1>
+  </div>
+  <div class="container-responsive" id="listOrder">
+  </div>        
+`;
+  document.getElementById("template").innerHTML = template;
+  getOrderForDate();
 };
 
 const AgregarEditar = (key = "producto", verb = "POST", data = "") => {
