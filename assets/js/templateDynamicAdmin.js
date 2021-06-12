@@ -2,9 +2,6 @@ $(document).ready(() => {
   const AUTH = JSON.parse(localStorage.getItem("sessionAdmin"));
   !AUTH && templateLogin();
   AUTH && templateHome();
-
-  const useradmin = JSON.parse(localStorage.getItem("userAdmin"));
-  document.getElementById("userName").innerText = useradmin.firstname;
 });
 
 const templateLogin = () => {
@@ -72,7 +69,7 @@ const templateSlider = () => {
 
       <ul class="list-unstyled CTAs">
           <li>
-              <a href="#" class="download">Cerrar Sesion</a>
+              <a href="#" class="download" onclick="logout()">Cerrar Sesion</a>
           </li>
           <li>
               <a href="%" class="article">Open</a>
@@ -90,7 +87,6 @@ const templateSlider = () => {
         </button> 
     </div>
 </nav>
-      
       <div class="template" id="template"></div>        
   </div>
 </div>
@@ -103,6 +99,8 @@ const templateHome = () => {
   $("#sidebarCollapse").on("click", () => {
     $("#sidebar").toggleClass("active");
   });
+  const useradmin = JSON.parse(localStorage.getItem("userAdmin")) || "";
+  document.getElementById("userName").innerText = useradmin.firstname;
   templateOrder();
 };
 
@@ -111,7 +109,7 @@ const ocultarMenuLateral = () => {
 };
 
 const templateProduct = () => {
-  ocultarMenuLateral();
+  //ocultarMenuLateral();
   const template = `
         <div class="container-btn">
           <button type="button" class="btn-button" onclick="AgregarEditar()">+Agregar</button>
@@ -123,7 +121,7 @@ const templateProduct = () => {
 };
 
 const templateCategoria = () => {
-  ocultarMenuLateral();
+  //ocultarMenuLateral();
   const template = `
         <div class="container-btn">
           <button class="btn-button" onclick="AgregarEditar('categoria')">+Agregar</button>
@@ -136,16 +134,35 @@ const templateCategoria = () => {
 };
 
 const templateOrder = () => {
-  ocultarMenuLateral();
+  getOrderForDate();
   const template = `
   <div class="container-btn">
-    <h1>conteo</h1>
+    <div class="group-form">
+      <input type="date" class="form-input" placeholder=" " id="fechaOrder" onChange="changeDate(event)">
+      <label class="label-control">Fecha</label>
+    </div>
+    <div class="card__container">
+      <div id="countOrderPendiente" class="card border-danger mr-5 w__card" ></div>
+      <div id="countOrderAtendido" class="card border-success w__card"></div>
+    </div>
+
   </div>
   <div class="container-responsive" id="listOrder">
   </div>        
 `;
-  document.getElementById("template").innerHTML = template;
+  getOrderForDate(moment().format("YYYY-MM-DD"), "CANTIDAD-PENDIENTE");
+  getOrderForDate(
+    moment().format("YYYY-MM-DD"),
+    "CANTIDAD-ATENDIDO",
+    "ATENDIDO"
+  );
   getOrderForDate();
+
+  document.getElementById("template").innerHTML = template;
+};
+
+changeDate = (event) => {
+  getOrderForDate(event.target.value);
 };
 
 const AgregarEditar = (key = "producto", verb = "POST", data = "") => {
@@ -226,4 +243,10 @@ const templateRegistrarCategoria = (verb) => {
       </form>
     </div>
   `;
+};
+
+const logout = () => {
+  localStorage.setItem("sessionAdmin", false);
+  localStorage.removeItem("userAdmin");
+  templateLogin();
 };

@@ -41,6 +41,31 @@ class OrderModel extends DBController{
         return json_encode($this->getDBResult($query, $params));
     }
 
+    function countOrder(array $params){
+
+       $query="SELECT order_status AS status,COUNT(*)AS cantidad
+                FROM tbl_order a
+                WHERE CAST(a.order_at AS date)=?
+                AND  order_status=?
+                group by order_status
+                ";
+
+        $params = array(
+            array(
+                "param_type" => "s",
+                "param_value" => $params['fecha']
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $params['status']
+            )
+        );
+
+        return json_encode($this->getDBResult($query, $params));
+
+
+    }
+
 }
 
 

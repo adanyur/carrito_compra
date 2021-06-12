@@ -228,14 +228,53 @@ const Toast = (text) => {
 
 /********************ORDER************************/
 
-const getOrderForDate = () => {
-  $.get(`views/order.php?fecha=2021-05-08`, (value) => {
-    let data = JSON.parse(value);
+const getOrderForDate = (
+  fecha = moment().format("YYYY-MM-DD"),
+  key = "LISTADO",
+  status = "PENDIENTE"
+) => {
+  $.get(
+    `views/order.php?fecha=${fecha}&consulta=${key}&status=${status}`,
+    (value) => {
+      const TEMPLA_DYNAMIC = {
+        LISTADO: templateListaOrder(JSON.parse(value)),
+        "CANTIDAD-PENDIENTE": templateCountPendiente(JSON.parse(value)),
+        "CANTIDAD-ATENDIDO": templateCountAtendiddo(JSON.parse(value)),
+      };
+      document.getElementById("listOrder").innerHTML = TEMPLA_DYNAMIC[key];
+    }
+  );
+};
 
-    data.map((value) => {
-      let template = "";
-      template += `
-                <div class="container-table" id="table-list">
+const templateCountPendiente = (data) => {
+  data.map((value) => {
+    if (value.status === "PENDIENTE") {
+      document.getElementById("countOrderPendiente").innerHTML = `
+                      <div class="card-header bg-transparent border-danger text-danger">${value.status}</div>
+                      <div class="card-body text-danger">
+                      <h3 class="card-title text-center">${value.cantidad}</h3>
+                        </div>
+                    `;
+    }
+  });
+};
+
+const templateCountAtendiddo = (data) => {
+  data.map((value) => {
+    if (value.status === "ATENDIDO") {
+      document.getElementById("countOrderAtendido").innerHTML = `
+      <div class="card-header bg-transparent border-success text-success">${value.status}</div>
+      <div class="card-body text-success">
+          <h3 class="card-title text-center">${value.cantidad}</h3>
+        </div>
+    `;
+    }
+  });
+};
+
+const templateListaOrder = (data) => {
+  return data.map((value) => {
+    return `<div class="container-table" id="table-list">
                   <div class="container-table-header">
                     <img src="../assets/icon/male-avatar.svg" class="imagen-list">
                   </div>
@@ -245,22 +284,18 @@ const getOrderForDate = () => {
                             <div class="cell-item">payment_type</div>
                             <div class="cell-item">order_status</div>
                             <div class="cell-item">fecha</div>
-
-                        </div>  
+                        </div>
                         <div class="container-row-body">
                           <div class="cell-item">${value.client}</div>
                           <div class="cell-item">${value.payment_type}</div>
-                          <div class="cell-item">${value.order_status}</div>
                           <div class="cell-item">${value.fecha}</div>
+                          <div class="cell-item">${value.order_status}</div>
                         </div>
                     </div>
                     <div class="container-table-footer">
                       <img src="../assets/icon/edit.svg" class="img-svg-2" onclick="showOrder()">
                     </div>
-                </div>  `;
-
-      document.getElementById("listOrder").innerHTML = template;
-    });
+                </div>`;
   });
 };
 
