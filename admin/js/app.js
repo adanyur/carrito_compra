@@ -250,11 +250,11 @@ const templateCountPendiente = (data) => {
   data.map((value) => {
     if (value.status === "PENDIENTE") {
       document.getElementById("countOrderPendiente").innerHTML = `
-                      <div class="card-header bg-transparent border-danger text-danger">${value.status}</div>
-                      <div class="card-body text-danger">
-                      <h3 class="card-title text-center">${value.cantidad}</h3>
-                        </div>
-                    `;
+          <div class="card-header bg-transparent border-danger text-danger">${value.status}</div>
+            <div class="card-body text-danger">
+            <h3 class="card-title text-center">${value.cantidad}</h3>
+          </div>
+        `;
     }
   });
 };
@@ -295,7 +295,7 @@ const templateListaOrder = (data) => {
                     <div class="container-table-footer">
                       <img src="../assets/icon/edit.svg" class="img-svg-2" onclick="showOrder()">
                     </div>
-                </div>`;
+            </div>`;
   });
 };
 
@@ -355,5 +355,40 @@ const openModalOrder = (data) => {
               </div>
           </div>
           `;
+  });
+};
+/*****************DASHBOARD******************/
+
+const salesTotal = () => {
+  $.get(`views/payment.php`, (value) => {
+    const { status, data } = JSON.parse(value);
+    let template = "";
+    if (status) {
+      let value = JSON.parse(data);
+      value.map((value) => {
+        const COLOR_FONO = {
+          PAYPAL: "bg-primary",
+          TIENDA: "bg-warning",
+          TOTAL: "bg-success",
+        };
+
+        template += `
+        <div class="card  ${
+          COLOR_FONO[value.wayToPay]
+        } text-white mr-5 w__card__25 h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="me-3">
+              <div class="text-white-75 fw-bold small">${value.wayToPay}</div>
+              <div class="text-lg fw-bold">$${value.salesTotal}</div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign feather-xl text-white-50"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+        </div>
+      </div>
+     `;
+      });
+      document.getElementById("salesTotal").innerHTML = template;
+    }
   });
 };

@@ -89,6 +89,7 @@
 .w__card {
   width: 100%;
   margin-bottom: 1rem;
+  border-radius: 2rem;
 }
 
 .btn-button {
@@ -115,6 +116,30 @@
 
 .image-preview {
   width: 100%;
+}
+
+.text-white-75 {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.text-lg {
+  font-size: 2rem;
+}
+
+.fw-bold {
+  font-weight: 500;
+}
+
+.bg-warning {
+  background-color: #f4a100 !important;
+}
+
+.bg-primary {
+  background-color: #0061f2 !important;
+}
+
+.bg-success {
+  background-color: #00ac69 !important;
 }
 
 @media (min-width: 768px) and (min-width: 992px) {
@@ -194,5 +219,10 @@
 
   .w__card {
     width: 30%;
+  }
+
+  .w__card__25 {
+    width: 25%;
+    border-radius: 0.5rem;
   }
 }

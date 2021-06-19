@@ -43,6 +43,9 @@ const templateSlider = () => {
       <ul class="list-unstyled components">
           <p id="userName"></p>
           <li>
+            <a href="#" onclick="templateDashboard()">Dashboard</a>
+          </li>
+          <li>
             <a href="#" onclick="templateOrder()">Ordenes</a>
           </li>
           <li>
@@ -134,18 +137,19 @@ const templateCategoria = () => {
 };
 
 const templateOrder = () => {
-  getOrderForDate();
-  const template = `
-  <div class="container-btn">
+  /* input de fecha busquedan
     <div class="group-form">
       <input type="date" class="form-input" placeholder=" " id="fechaOrder" onChange="changeDate(event)">
       <label class="label-control">Fecha</label>
     </div>
+  */
+
+  const template = `
+  <div class="container-btn">
     <div class="card__container">
       <div id="countOrderPendiente" class="card border-danger mr-5 w__card" ></div>
       <div id="countOrderAtendido" class="card border-success w__card"></div>
     </div>
-
   </div>
   <div class="container-responsive" id="listOrder">
   </div>        
@@ -156,13 +160,19 @@ const templateOrder = () => {
     "CANTIDAD-ATENDIDO",
     "ATENDIDO"
   );
-  getOrderForDate();
 
   document.getElementById("template").innerHTML = template;
+  getOrderForDate();
 };
 
-changeDate = (event) => {
-  getOrderForDate(event.target.value);
+const templateDashboard = () => {
+  const template = `
+  <div class="container-btn">
+    <div class="card__container" id="salesTotal"></div>
+  </div>
+  `;
+  document.getElementById("template").innerHTML = template;
+  salesTotal();
 };
 
 const AgregarEditar = (key = "producto", verb = "POST", data = "") => {
